@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'channels',
     'accounts',
     'home',
+    'transactions',
 ]
 
 MIDDLEWARE = [
