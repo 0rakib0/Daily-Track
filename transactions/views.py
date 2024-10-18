@@ -21,3 +21,15 @@ def AddBank(request):
             messages.warning(request, f'An unexpected error occurred: {e}')
             
     return render(request, 'transaction/add-bank.html', context={})
+
+
+def View_Banks(request):
+    user = request.user
+    banks = Bank.objects.filter(user=user)
+    if not banks.exists():
+        messages.warning(request, 'No Bank Found.')
+    context = {
+        'banks':banks
+    }
+    
+    return render(request, 'transaction/view-banks.html', context)
