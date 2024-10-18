@@ -8,6 +8,34 @@
           <div class="badge badge-danger">new</div>
         </a>
       </li>
+
+
+
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="{% url 'transaction:add_bank' %}">
+          <i class="typcn typcn-mortar-board menu-icon"></i>
+          <span class="menu-title">Add Bank Account</span>
+        </a>
+      </li> -->
+
+
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <i class="typcn typcn-document-text menu-icon"></i>
+          <span class="menu-title">Bank Account</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="{% url 'transaction:add_bank' %}">
+              <span class="menu-title">Add Bank Account</span>
+            </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">View Bank Accounts</a></li>
+          </ul>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="typcn typcn-document-text menu-icon"></i>
