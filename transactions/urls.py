@@ -5,5 +5,7 @@ app_name='transaction'
 
 urlpatterns = [
     path('add-bank/', views.AddBank, name='add_bank'),
-    path('view-bank-accounts/', views.View_Banks, name='view_bank')
+    path('view-bank-accounts/', views.View_Banks, name='view_bank'),
+    path("update/<int:id>/", views.UpdateBank, name="update_bank"),
+    path('delete-bank/<int:id>/', views.DeleteBank, name='delete_bank'),
 ]

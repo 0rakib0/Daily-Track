@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include "shared/messages.html" %}
+        <h4 class="card-title">Update Bank Account</h4>
+        <p class="card-description">
+          Update Bank Account
+        </p>
+        <form class="forms-sample" method="POST">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputName1">Bank Name</label>
+            <input type="text" name="bank-name" value="{{bank.bank_name}}" class="form-control" id="exampleInputName1" placeholder="Enter Bank Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Account Number</label>
+            <input type="text" name="account-number" value="{{bank.account_number}}" class="form-control" id="exampleInputName1" placeholder="Enter Bank Account Number">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2 form-control">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

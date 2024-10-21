@@ -6,6 +6,7 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        {% include "shared/messages.html" %}
         <h4 class="card-title">Banks Account List</h4>
         <p class="card-description">
           Your Bank <code>.Account List</code>
@@ -47,7 +48,8 @@
                     {{bank.date|date:"d F Y"}}
                 </td>
                 <td>
-                  <label class="badge badge-danger" id="hello" data-bank-id="{{ bank.id }}" data-toggle="modal" data-target="#exampleModal">Delete</label>
+                  <label class="badge badge-danger" id="hello" onclick="updateUrl({{bank.id}})" data-toggle="modal" data-target="#exampleModal">Delete</label>
+                  <a href="{% url 'transaction:update_bank' bank.id %}" class="badge badge-info">Update</a>
                 </td>
               </tr>
             {% endfor %}
@@ -73,7 +75,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <a href="" class="btn btn-danger">Yes Delete It</a>
+          <a id="delete-bank" class="btn btn-danger">Yes Delete It</a>
         </div>
       </div>
     </div>

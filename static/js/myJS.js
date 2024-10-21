@@ -1,9 +1,7 @@
-// function myFunc(e){
-//     console.log(e)
-// }
+function updateUrl(e){
+    let deleteObj = document.getElementById('delete-bank')
+    deleteObj.setAttribute('href', `/delete-bank/${e}/`)
+    console.log("==================")
+    console.log(deleteObj.getAttribute('href'))
+}
 
-document.getElementById('hello').addEventListener('click', (e) => {
-    const id = e.currentTarget.getAttribute('data-bank-id'); // Call getAttribute with the attribute name
-
-    console.log(id);
-});
