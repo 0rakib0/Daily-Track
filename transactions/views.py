@@ -91,7 +91,12 @@ def deposit_blance(request):
             accounts.save()
             messages.success(request, 'Deposite amount successfully aded!')
             return redirect('transaction:deposit_blance')
-        except:
-            pass
+        except IntegrityError:
+            messages.warning(request, 'Error: Unable to added amount, please try again!')
         
     return render(request, 'transaction/deposit_blance.html', context={'banks':banks})
+
+
+
+def transection_blance(request):
+    return render(request, 'transaction/transection.html', context={})
