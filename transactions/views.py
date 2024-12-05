@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Bank
+from .models import Bank, Account
 from django.db import IntegrityError
 # Create your views here.
 
@@ -65,3 +65,33 @@ def DeleteBank(requuest, id):
         messages.error(requuest, 'Bank Info not found, something wrong')
         
     return redirect('transaction:view_bank')
+
+
+def deposit_blance(request):
+    user = request.user
+    banks = Bank.objects.filter(user=user)
+    if request.method == 'POST':
+        bank_id = request.POST.get('bank')
+        depo_type = request.POST.get('depo_type')
+        note = request.POST.get('note')
+        amount = request.POST.get('amount')
+        try:
+            bank = Bank.objects.get(id=bank_id)
+        except Bank.DoesNotExist:
+            print("Bank account not found, train again")
+        
+        try:
+            accounts = Account(
+                user = request.user,
+                bank = bank,
+                depo_type = depo_type,
+                note = note,
+                amount = amount                
+            )
+            accounts.save()
+            messages.success(request, 'Deposite amount successfully aded!')
+            return redirect('transaction:deposit_blance')
+        except:
+            pass
+        
+    return render(request, 'transaction/deposit_blance.html', context={'banks':banks})

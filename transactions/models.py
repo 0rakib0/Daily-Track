@@ -16,10 +16,13 @@ class Bank(models.Model):
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bank = models.ForeignKey(Bank, on_delete=models.DO_NOTHING)
+    depo_type = models.CharField(max_length=150)
+    note = models.CharField(max_length=260)
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    deposite_date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
-        return self.bank
+        return self.user.username
     
     
 class TotalAmount(models.Model):
@@ -50,3 +53,5 @@ class Transaction(models.Model):
     
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
+
+

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include "shared/messages.html" %}
+        <h4 class="card-title">Deposite Blance</h4>
+        <p class="card-description">
+          Deposite blance from bank account
+        </p>
+        <form class="forms-sample" method="POST">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputName1">Select Bank Account</label>
+            <select name="bank" class="form-control form-control-lg" id="exampleFormControlSelect1">
+                <option hidden selected>--SELECT--</option>
+                {% for bank in banks %}
+                <option value="{{bank.id}}">{{bank.bank_name}}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Deposite Type</label>
+            <select name="depo_type" class="form-control form-control-lg" id="exampleFormControlSelect1">
+                <option hidden selected>--SELECT--</option>
+              <option value="cash">Cash</option>
+              <option value="chack">Chack</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Note</label>
+            <input type="text" name="note" class="form-control" id="exampleInputName1" placeholder="Write a short note for deposite">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Amount</label>
+            <input type="number" name="amount" class="form-control" id="exampleInputName1" placeholder="Enter deposte amount">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2 form-control">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

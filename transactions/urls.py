@@ -8,4 +8,5 @@ urlpatterns = [
     path('view-bank-accounts/', views.View_Banks, name='view_bank'),
     path("update/<int:id>/", views.UpdateBank, name="update_bank"),
     path('delete-bank/<int:id>/', views.DeleteBank, name='delete_bank'),
+    path('deposit-blance/', views.deposit_blance, name='deposit_blance'),
 ]
