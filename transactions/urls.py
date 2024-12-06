@@ -9,5 +9,7 @@ urlpatterns = [
     path("update/<int:id>/", views.UpdateBank, name="update_bank"),
     path('delete-bank/<int:id>/', views.DeleteBank, name='delete_bank'),
     path('deposit-blance/', views.deposit_blance, name='deposit_blance'),
-    path('transection-amount/', views.transection_blance, name='transection_blance')
+    path('transection-amount/', views.transection_blance, name='transection_blance'),
+    path('add-income/', views.Add_Income, name='add_income'),
+    path('add-express/', views.Add_Express, name='add_express'),
 ]

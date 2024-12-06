@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include "shared/messages.html" %}
+        <h4 class="card-title">Add Income</h4>
+        <p class="card-description">
+          Add Income
+        </p>
+        <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputName1">Amount</label>
+                <input type="number" name="amount" class="form-control" id="exampleInputName1" placeholder="Enter your amount">
+              </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Income Source</label>
+            <input type="text" name="income_source" class="form-control" id="exampleInputName1" placeholder="Enter your income source">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Income Category Type</label>
+            <input type="text" name="income_category" class="form-control" id="exampleInputName1" placeholder="Enter your income source">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Note</label>
+            <input type="text" name="note" class="form-control" id="exampleInputName1" placeholder="Enter your income source">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2 form-control">Add Income</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -53,5 +53,28 @@ class Transaction(models.Model):
     
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
+    
+class Income(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField(default=0.0)
+    sourse = models.CharField(max_length=260)
+    income_category = models.CharField(max_length=260)
+    note = models.TextField()
+    create_att = models.DateTimeField(auto_now_add=True)
+    update_att = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return self.sourse
 
 
+class Express(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField(default=0.0)
+    purpose = models.CharField(max_length=260)
+    express_category = models.CharField(max_length=260)
+    note = models.TextField()
+    create_att = models.DateTimeField(auto_now_add=True)
+    update_att = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return self.purpose

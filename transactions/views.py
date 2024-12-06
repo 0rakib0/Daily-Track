@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Bank, Account
+from .models import Bank, Account, Income, Express
 from django.db import IntegrityError
 # Create your views here.
 
@@ -100,3 +100,54 @@ def deposit_blance(request):
 
 def transection_blance(request):
     return render(request, 'transaction/transection.html', context={})
+
+
+def Add_Income(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        income_source = request.POST.get('income_source')
+        income_category = request.POST.get('income_category')
+        note = request.POST.get('note')
+        try:
+            income = Income.objects.create(
+                user = request.user,
+                amount = amount,
+                sourse = income_source,
+                income_category = income_category,
+                note = note
+            )
+            income.save()
+            messages.success(request, "Income successfully Added!")
+            return redirect('transaction:add_income')
+        except IntegrityError:
+            messages.warning(request, 'Error: Unable to added bank account, please try again!')
+            return redirect('transaction:add_income')
+        except Exception as e:
+            messages.error(request, 'Somethink wrong, ', e)
+            return redirect('transaction:add_income')
+    return render(request, 'transaction/add_inome.html', context={})
+
+def Add_Express(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        purpose = request.POST.get('purpose')
+        express_category = request.POST.get('express_category')
+        note = request.POST.get('note')
+        try:
+            express = Express.objects.create(
+                user = request.user,
+                amount = amount,
+                purpose = purpose,
+                express_category = express_category,
+                note = note
+            )
+            express.save()
+            messages.success(request, "Express successfully Added!")
+            return redirect('transaction:add_express')
+        except IntegrityError:
+            messages.warning(request, 'Error: Unable to added bank account, please try again!')
+            return redirect('transaction:add_express')
+        except Exception as e:
+            messages.error(request, 'Somethink wrong, ', e)
+            return redirect('transaction:add_express')
+    return render(request, 'transaction/add_express.html', context={})
