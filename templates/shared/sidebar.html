@@ -52,9 +52,9 @@
         <div class="collapse" id="form-elements">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"><a class="nav-link" href="{% url 'transaction:add_income' %}">Add Income</a></li>
-            <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">View Income</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'transaction:view_income' %}">View Income</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'transaction:add_express' %}">Add Express</a></li>
-            <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">View Express</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'transaction:view_express' %}">View Express</a></li>
           </ul>
         </div>
       </li>

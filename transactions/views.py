@@ -127,6 +127,10 @@ def Add_Income(request):
             return redirect('transaction:add_income')
     return render(request, 'transaction/add_inome.html', context={})
 
+
+def View_Income(request):
+    return render(request, 'transaction/view_income.html', context={})
+
 def Add_Express(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -151,3 +155,7 @@ def Add_Express(request):
             messages.error(request, 'Somethink wrong, ', e)
             return redirect('transaction:add_express')
     return render(request, 'transaction/add_express.html', context={})
+
+
+def View_Express(request):
+    return render(request, 'transaction/view_express.html', context={})

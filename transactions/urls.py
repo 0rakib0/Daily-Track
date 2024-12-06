@@ -12,4 +12,6 @@ urlpatterns = [
     path('transection-amount/', views.transection_blance, name='transection_blance'),
     path('add-income/', views.Add_Income, name='add_income'),
     path('add-express/', views.Add_Express, name='add_express'),
+    path('view-income/', views.View_Income, name='view_income'),
+    path('view-express/', views.View_Express, name='view_express'),
 ]
