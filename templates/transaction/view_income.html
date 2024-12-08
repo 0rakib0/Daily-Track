@@ -39,23 +39,29 @@
               </tr>
             </thead>
             <tbody>
-            {% for bank in banks %}
+            {% for income in income_data %}
               <tr>
                 <td>
                   {{forloop.counter}}
                 </td>
                 <td>
-                  {{bank.bank_name}}
+                  {{income.sourse}}
                 </td>
                 <td>
-                    {{bank.account_number}}
+                    {{income.income_category}}
                 </td>
                 <td>
-                    {{bank.date|date:"d F Y"}}
+                  {{income.note|slice:30}}...
                 </td>
                 <td>
-                  <label class="badge badge-danger" id="hello" data-toggle="modal" data-target="#exampleModal">Delete</label>
-                  <a href="{% url 'transaction:update_bank' bank.id %}" class="badge badge-info">Update</a>
+                    {{income.create_att|date:"d F Y"}}
+                </td>
+                <td>
+                  {{income.amount}}
+                </td>
+                <td>
+                  <a href="{% url 'transaction:delete_income' id=income.id %}" class="badge badge-danger">Delete</a>
+                  <a href="{% url 'transaction:update_incom' id=income.id %}" class="badge badge-info">Update</a>
                 </td>
               </tr>
             {% endfor %}

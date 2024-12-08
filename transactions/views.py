@@ -129,7 +129,47 @@ def Add_Income(request):
 
 
 def View_Income(request):
-    return render(request, 'transaction/view_income.html', context={})
+    user = request.user
+    income_data = Income.objects.filter(user=user)
+    print(income_data)
+    return render(request, 'transaction/view_income.html', context={'income_data':income_data})
+
+
+def UpdateIncome(request, id):
+    user = request.user
+    try:
+       income_data = Income.objects.get(user=user, id=id)
+    except Income.DoesNotExist:
+        messages.error(request, 'Data Not Found, Please Try Again!')
+        return redirect("transaction:view_income")
+    if request.method == "POST":
+        amount = request.POST.get('amount')
+        income_source = request.POST.get('income_source')
+        income_category = request.POST.get('income_category')
+        note = request.POST.get('note')
+        
+        income_data.amount = amount
+        income_data.sourse = income_source
+        income_data.income_category = income_category
+        income_data.note = note
+        income_data.save()
+        messages.success(request, "Income Data successfully updated")
+        return redirect("transaction:view_income")
+    return render(request, 'transaction/update_income.html', context={'income_data':income_data})
+
+
+
+def DeleteIncome(request, id):
+    user = request.user
+    try:
+        income_data = Income.objects.get(user=user, id=id)
+        income_data.delete()
+        messages.success(request, "Income Data Successfully Deleted!")
+        return redirect("transaction:view_income")
+    except Income.DoesNotExist:
+        messages.error(request, "Data Not Found, Try Again")
+        return redirect("transaction:view_income")
+    
 
 def Add_Express(request):
     if request.method == 'POST':
@@ -158,4 +198,41 @@ def Add_Express(request):
 
 
 def View_Express(request):
-    return render(request, 'transaction/view_express.html', context={})
+    user = request.user 
+    expreses = Express.objects.filter(user=user)
+    return render(request, 'transaction/view_express.html', context={'expreses':expreses})
+
+
+def UpdateExpress(request, id):
+    user = request.user
+    try:
+       express_data = Express.objects.get(user=user, id=id)
+    except Express.DoesNotExist:
+        messages.error(request, 'Data Not Found, Please Try Again!')
+        return redirect("transaction:view_express")
+    if request.method == "POST":
+        amount = request.POST.get('amount')
+        purpose = request.POST.get('purpose')
+        express_category = request.POST.get('express_category')
+        note = request.POST.get('note')
+        
+        express_data.amount = amount
+        express_data.purpose = purpose
+        express_data.express_category = express_category
+        express_data.note = note
+        express_data.save()
+        messages.success(request, "Express Data successfully updated")
+        return redirect("transaction:view_express")
+    return render(request, 'transaction/update_express.html', context={'express_data':express_data})
+
+
+def DeleteExpress(request, id):
+    user = request.user
+    try:
+        expess_data = Express.objects.get(user=user, id=id)
+        expess_data.delete()
+        messages.success(request, "Express Data Successfully Deleted!")
+        return redirect("transaction:view_express")
+    except Express.DoesNotExist:
+        messages.error(request, "Data Not Found, Try Again")
+        return redirect("transaction:view_express")

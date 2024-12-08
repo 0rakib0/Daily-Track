@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include "shared/messages.html" %}
+        <h4 class="card-title">Update Express Data</h4>
+        <p class="card-description">
+            Update Express Data
+        </p>
+        <form class="forms-sample" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputName1">Amount</label>
+                <input type="number" name="amount" class="form-control" id="exampleInputName1" value="{{express_data.amount}}">
+              </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Purpose</label>
+            <input type="text" name="purpose" class="form-control" id="exampleInputName1" value="{{express_data.purpose}}">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Express Category Type</label>
+            <input type="text" name="express_category" class="form-control" id="exampleInputName1" value="{{express_data.express_category}}">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Note</label>
+            <input type="text" name="note" class="form-control" id="exampleInputName1" value="{{express_data.express_category}}">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2 form-control">Update Express</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
