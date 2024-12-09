@@ -18,4 +18,5 @@ urlpatterns = [
     path('view-express/', views.View_Express, name='view_express'),
     path('update-express-data/<int:id>/', views.UpdateExpress, name='update_express'),
     path('delete-expess/<int:id>/', views.DeleteExpress, name='delete_express'),
+    
 ]

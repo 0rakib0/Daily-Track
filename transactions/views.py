@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Bank, Account, Income, Express
+from .models import Bank, Account, Income, Express, Transaction
+from django.contrib.auth.models import User
 from django.db import IntegrityError
 # Create your views here.
 
@@ -99,6 +100,27 @@ def deposit_blance(request):
 
 
 def transection_blance(request):
+    if request.method == 'POST':
+        account_number = request.POST.get('account_number')
+        username = request.POST.get('username')
+        amount = request.POST.get('amount')
+        note = request.POST.get('note')
+        
+        receive_user = User.objects.get(username=username)
+        send_user = request.user
+        
+        transection = Transaction(
+            send_user = send_user,
+            receive_user = receive_user,
+            account_number = account_number,
+            amount = amount,
+            note = note
+        )
+        
+        transection.save()
+        messages.success(request, 'Transection successfully complated!')
+        return redirect('transaction:transection_blance')
+        
     return render(request, 'transaction/transection.html', context={})
 
 
@@ -236,3 +258,13 @@ def DeleteExpress(request, id):
     except Express.DoesNotExist:
         messages.error(request, "Data Not Found, Try Again")
         return redirect("transaction:view_express")
+    
+    
+    
+
+def Transection(request):
+    if request.method == "POST":
+        account_number = request.POST.get()
+        print(account_number)
+        
+    return render(request, 'transaction/transaction.html', context={})
