@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 
 class Bank(models.Model):
@@ -14,7 +17,7 @@ class Bank(models.Model):
     
     
 class Account(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     bank = models.ForeignKey(Bank, on_delete=models.DO_NOTHING)
     depo_type = models.CharField(max_length=150)
     note = models.CharField(max_length=260)
@@ -25,9 +28,9 @@ class Account(models.Model):
         return self.user.username
     
     
-class TotalAmount(models.Model):
+class TotalBalance(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    balance = models.FloatField(default=0.00)
     
     def __str__(self) -> str:
         return f"{self.user.username} : {self.balance}"
@@ -72,3 +75,13 @@ class Express(models.Model):
     
     def __str__(self) -> str:
         return self.purpose
+
+
+
+
+@receiver(post_save ,sender=User)
+def create_userprofile(sender, instance, created, **kwargs):
+    if created:
+        TotalBalance.objects.create(user=instance)
+
+    

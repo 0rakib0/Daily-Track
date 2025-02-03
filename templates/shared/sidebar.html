@@ -60,13 +60,6 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'transaction:transection_blance' %}">
-          <i class="typcn typcn-mortar-board menu-icon"></i>
-          <span class="menu-title">Transection Balance</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="typcn typcn-document-text menu-icon"></i>
           <span class="menu-title">Transactions</span>
@@ -74,9 +67,9 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Transection Catagory</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'transaction:transection_blance' %}">Transection Blance</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'transaction:transection_data' %}">Transetion Data</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'transaction:receive_transection' %}">Transetion Receive</a></li>
           </ul>
         </div>
       </li>

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Bank, Account, Income, Express, Transaction
+from .models import Bank, Account, Income, Express, Transaction, TotalBalance
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.db.models import Q
 # Create your views here.
 
 def AddBank(request):
@@ -71,11 +72,13 @@ def DeleteBank(requuest, id):
 def deposit_blance(request):
     user = request.user
     banks = Bank.objects.filter(user=user)
+    total_balance_obj = TotalBalance.objects.get(user=user)
     if request.method == 'POST':
         bank_id = request.POST.get('bank')
         depo_type = request.POST.get('depo_type')
         note = request.POST.get('note')
         amount = request.POST.get('amount')
+        flot_amount = float(amount)
         try:
             bank = Bank.objects.get(id=bank_id)
         except Bank.DoesNotExist:
@@ -87,9 +90,11 @@ def deposit_blance(request):
                 bank = bank,
                 depo_type = depo_type,
                 note = note,
-                amount = amount                
+                amount = flot_amount                
             )
             accounts.save()
+            total_balance_obj.balance += flot_amount
+            total_balance_obj.save()
             messages.success(request, 'Deposite amount successfully aded!')
             return redirect('transaction:deposit_blance')
         except IntegrityError:
@@ -122,6 +127,32 @@ def transection_blance(request):
         return redirect('transaction:transection_blance')
         
     return render(request, 'transaction/transection.html', context={})
+
+
+
+def transection_data(request):
+    current_user = request.user
+    transection_data = Transaction.objects.filter(send_user=current_user)
+    if not transection_data.exists():
+        messages.warning(request, "No Transection Data Available.")
+    context = {
+        'transection_data':transection_data
+    }
+    return render(request, 'transaction/transection_data.html', context)
+
+
+def receive_transection(request):
+    current_user = request.user
+    account_number = request.user.user_profile.account_number
+    receiver_transection_data = Transaction.objects.filter(Q(receive_user=current_user) & Q(account_number=account_number))
+    
+    if not receiver_transection_data.exists():
+        messages.warning(request, "No Transection Data Available.")
+    context = {
+        'receive_transection':receiver_transection_data
+    }
+    return render(request, 'transaction/receive_transection.html', context)
+
 
 
 def Add_Income(request):
@@ -259,12 +290,3 @@ def DeleteExpress(request, id):
         messages.error(request, "Data Not Found, Try Again")
         return redirect("transaction:view_express")
     
-    
-    
-
-def Transection(request):
-    if request.method == "POST":
-        account_number = request.POST.get()
-        print(account_number)
-        
-    return render(request, 'transaction/transaction.html', context={})
