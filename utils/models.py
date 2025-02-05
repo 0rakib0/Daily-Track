@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class BudgetCategory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     cat_name = models.CharField(max_length=160)
     create_at = models.DateTimeField(auto_now_add=True) 
 
