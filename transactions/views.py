@@ -71,8 +71,12 @@ def DeleteBank(requuest, id):
 
 def deposit_blance(request):
     user = request.user
-    banks = Bank.objects.filter(user=user)
-    total_balance_obj = TotalBalance.objects.get(user=user)
+    try:
+        banks = Bank.objects.filter(user=user)
+        total_balance_obj = TotalBalance.objects.get(user=user)
+    except Exception as e:
+        messages.error(request, f"Your Balance deposit not success! Error: {e}")
+        return redirect('transaction:transection_blance')
     if request.method == 'POST':
         bank_id = request.POST.get('bank')
         depo_type = request.POST.get('depo_type')
@@ -105,26 +109,51 @@ def deposit_blance(request):
 
 
 def transection_blance(request):
+    send_user = request.user
+    user = request.user
+    try:
+        sender_total_balance = TotalBalance.objects.get(user=user)
+    except TotalBalance.DoesNotExist:
+        messages.error(request, "Your transaction does not complate. pleae tray again!")
+        return redirect('transaction:transection_blance')
+    
     if request.method == 'POST':
         account_number = request.POST.get('account_number')
         username = request.POST.get('username')
         amount = request.POST.get('amount')
+        float_amount = float(amount)
         note = request.POST.get('note')
         
-        receive_user = User.objects.get(username=username)
-        send_user = request.user
+        try:
+            receive_user = User.objects.get(username=username)
+            receiver_total_balance = TotalBalance.objects.get(user=receive_user)
+        except Exception as e:
+            messages.error(request, f"Your transaction does not complate. pleae tray again. error: {e}")
+            return redirect('transaction:transection_blance')
         
-        transection = Transaction(
-            send_user = send_user,
-            receive_user = receive_user,
-            account_number = account_number,
-            amount = amount,
-            note = note
-        )
+        sender_total = sender_total_balance.balance
+        print(sender_total)
         
-        transection.save()
-        messages.success(request, 'Transection successfully complated!')
-        return redirect('transaction:transection_blance')
+        if sender_total < float_amount:
+            messages.error(request, f'You have not available blance. Your balance is {sender_total} tk')
+            return redirect('transaction:transection_blance')
+        else:
+            transection = Transaction(
+                send_user = send_user,
+                receive_user = receive_user,
+                account_number = account_number,
+                amount = float_amount,
+                note = note
+            )
+            transection.save()
+            sender_total_balance.balance -= float_amount
+            sender_total_balance.save()
+            
+            receiver_total_balance.balance += float_amount
+            receiver_total_balance.save()
+            
+            messages.success(request, 'Transection successfully complated!')
+            return redirect('transaction:transection_blance')
         
     return render(request, 'transaction/transection.html', context={})
 
