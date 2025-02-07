@@ -81,10 +81,10 @@
         </a>
         <div class="collapse" id="charts">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Add Budget Category</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Add Budget</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Budget Category</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Budget List</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_budget_cat' %}">Add Budget Category</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_budget' %}">Add Budget</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:category_list' %}">Budget Category</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:view_budget' %}">Budget List</a></li>
           </ul>
         </div>
       </li>
