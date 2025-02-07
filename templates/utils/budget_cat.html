@@ -36,7 +36,7 @@
                   {{category.cat_name}}
                 </td>
                 <td>
-                  <a href="" class="badge badge-danger">Delete</a>
+                  <a href="{% url 'utils:delete_category' id=category.id %}" class="badge badge-danger">Delete</a>
                 </td>
               </tr>
             {% endfor %}
