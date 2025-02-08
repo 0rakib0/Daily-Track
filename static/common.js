@@ -23,3 +23,9 @@ const update = id => {
         console.error('Error:', error);
     });
 };
+
+
+const confirmDelete = id =>{
+    let deleteObj = document.getElementById('category_delete')
+    deleteObj.setAttribute('href', `/delete-budget-category/${id}/`)
+}
