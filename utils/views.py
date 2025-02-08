@@ -52,10 +52,10 @@ def delete_budget_cat(request, id):
         budget_category = BudgetCategory.objects.filter(Q(id=id) & Q(user=user)).first()
     except Exception as e:
         messages.error(request, f"Category not delete, Error: {e}!")
-        return redirect('utils:view_budget')
+        return redirect('utils:category_list')
     budget_category.delete()
     messages.success(request, "Category successfully deleted!")
-    return redirect('utils:view_budget')
+    return redirect('utils:category_list')
 
 
 def add_badget(request):
@@ -108,5 +108,30 @@ def view_budget(request):
         return redirect('utils:view_budget')
     
     return render(request, 'utils/budget_list.html', context={'budgets':budgets})
+
+
+def update_to_complate(request, id):
+    user = request.user
+    try:
+        budget = Budget.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, 'something wrong!')
+        return redirect('utils:view_budget')
+
+    budget.is_completed = True
+    budget.save()
+    messages.success(request, 'Successfully updated!')
+    return redirect('utils:view_budget')
     
-    
+
+def delete_budget(request, id):
+    user = request.user
+    try:
+        budget = Budget.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, 'something wrong!')
+        return redirect('utils:view_budget')
+
+    budget.delete()
+    messages.success(request, 'Budget successfully deleted!')
+    return redirect('utils:view_budget')

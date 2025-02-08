@@ -8,5 +8,7 @@ urlpatterns = [
     path('budget-category-list/', views.view_budget_category, name='category_list'),
     path('add-budget/', views.add_badget, name='add_budget'),
     path('view-budget-list/', views.view_budget, name='view_budget'),
-    path('delete-budget/<id>/', views.delete_budget_cat, name='delete_category'),
+    path('delete-budget-category/<id>/', views.delete_budget_cat, name='delete_category'),
+    path('update-to-complate/<id>/', views.update_to_complate, name='update_to_complate'),
+    path('delete-budget/<id>/', views.delete_budget, name='delete_budget'),
 ]
