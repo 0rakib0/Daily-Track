@@ -68,7 +68,7 @@
 
               </td>
               <td>
-                <a href="{% url 'utils:delete_budget' id=budget.id %}" class="badge badge-danger">Delete</a>
+                <span class="badge badge-danger" style="cursor: pointer" onclick="confirmDeleteBudget({{budget.id}})" data-toggle="modal" data-target="#exampleModal">Delete</span>
                 <a href="" class="badge badge-success" data-toggle="modal"
                   data-target="#exampleModalCenter{{ budget.id }}">View</a>
 
@@ -139,23 +139,28 @@
   </div>
 </div>
 
+
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">DO you want to delete it</h5>
+        <h6 class="modal-title" id="exampleModalLabel">You want to delete!</h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body text-danger">
-        Are you sure, you want to delete this banks account!
-      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning d-flex align-items-center" role="alert" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; padding: 20px; border-radius: 8px; font-family: Arial, sans-serif;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 24px; margin-right: 15px;"></i>
+          <div>
+            <strong>Warning!</strong><br>
+            <p style="margin: 0;">If you delete this Budget from your budget list, you cannot restored it again.</p>
+          </div>
+        </div>
+      </div>      
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <a id="delete-bank" class="btn btn-danger">Yes Delete It</a>
+        <a id="budget_delete" class="badge badge-danger">Delete It</a>
       </div>
     </div>
   </div>

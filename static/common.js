@@ -29,3 +29,8 @@ const confirmDelete = id =>{
     let deleteObj = document.getElementById('category_delete')
     deleteObj.setAttribute('href', `/delete-budget-category/${id}/`)
 }
+
+const confirmDeleteBudget = id =>{
+    let deleteObj = document.getElementById('budget_delete')
+    deleteObj.setAttribute('href', `/delete-budget/${id}/`)
+}
