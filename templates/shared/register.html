@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
   <head>
-    <title>Login 06</title>
+    <title>Register-new-user-account</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,22 +24,11 @@
                   <div class="form-group">
                     <p class="text-center text-white font-weight-bold h6" style="margin-bottom: 2rem;letter-spacing: 10px;">TRACK YOUR DAILLY LIFE</p>
                   </div>
-                  <p class="w-100 text-center mt-5" style="color:white;">&mdash; Sign In With &mdash;</p>
-                  <div class="w-100">
-                    <p class="social-media d-flex justify-content-center">
-                      <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
-                      <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a>
-                    </p>
-                  </div>
-                  <div class="form-group">
-                    <div class="text-center">
-                      <a href="#" class="">Forgot Password</a>
-                    </div>
-                  </div>
+                  <img src="{% static 'images/register.jpg' %}" width="270px" alt="">
                 </div>
                 <div class="half p-4 py-md-5">
                   <div class="w-100">
-                    <h3 class="mb-4 text-center font-weight-bold" style="color: #57c7d4;">SIGN IN</h3>
+                    <h5 class="mb-4 text-center font-weight-bold" style="color: #57c7d4;">REGISTER ACCOUNT</h5>
                   </div>
                   {% include "shared/messages.html" %}
                   <div class="form-group mt-3">
@@ -48,11 +37,16 @@
                   </div>
                   <div class="form-group">
                     <label class="label" for="password">Password</label>
-                    <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input id="password-field" type="password" name="password1" class="form-control" placeholder="Password" required>
                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                   </div>
                   <div class="form-group">
-                    <button type="submit" class="form-control btn rounded submit px-3 text-white" style="background-color: #57c7d4;">Sign In Now</button>
+                    <label class="label" for="password">Confirm Password</label>
+                    <input id="c-password-field" type="password" name="password2" class="form-control" placeholder="Confirm Password" required>
+                    <span toggle="#c-password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="form-control btn rounded submit px-3 text-white" style="background-color: #57c7d4;">Register</button>
                   </div>
                 </div>
               </form>
