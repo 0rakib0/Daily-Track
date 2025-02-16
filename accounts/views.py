@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
+from accounts.models import Profile
 import logging
 
 # Optional: Set up logging
@@ -63,8 +64,26 @@ def update_profile(request):
         user.email = email
         user.save()
         messages.success(request, "Profile Information successfully updated!")
-        return redirect('Home:dashbord')
+        return redirect('complate_profile')
     return render(request, 'accounts/update_profile.html')
+
+
+@login_required
+def complate_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        image = request.FILES.get('profile_image')
+        bio = request.POST.get('bio')
+        address = request.POST.get('address')
+
+        profile.profile_pic = image
+        profile.bio = bio
+        profile.adress = address
+
+        profile.save()
+        messages.success(request, "Your Profile setup completed!")
+        return redirect('Home:dashbord')
+    return render(request, 'accounts/complate_profile.html')
 
 
 
