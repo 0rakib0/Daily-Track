@@ -4,12 +4,11 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 import logging
 
 # Optional: Set up logging
 logger = logging.getLogger(__name__)
-
-
 
 
 def register_user(request):
@@ -37,9 +36,38 @@ def register_user(request):
         hashed_password = make_password(password)
         user = User.objects.create(username=username, password=hashed_password)
         user.save()
-        messages.success(request, 'Your Account successfully registered, Please complate your profile.')
-        return redirect('login_page')
+
+        login_user = authenticate(request, username=username, password=password)
+
+        if login_user:
+            login(request, login_user)
+            messages.success(request, 'Your Account successfully registered, Please complate your profile.')
+            return redirect('update_profile')
+
     return render(request, 'shared/register.html')
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email Already Exist!")
+            return redirect('update_profile')
+        
+        user = request.user
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+        messages.success(request, "Profile Information successfully updated!")
+        return redirect('Home:dashbord')
+    return render(request, 'accounts/update_profile.html')
+
+
+
 
 def Login_page(request):
     if request.method == "POST":
@@ -60,7 +88,7 @@ def Login_page(request):
 
     return render(request, 'shared/login.html', {'form': form})
 
-
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, "Successfully loged out!")
