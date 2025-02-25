@@ -4,8 +4,10 @@ from .models import Bank, Account, Income, Express, Transaction, TotalBalance
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def AddBank(request):
     if request.method == 'POST':
         bank_name = request.POST.get('bank-name')
@@ -24,7 +26,7 @@ def AddBank(request):
             
     return render(request, 'transaction/add-bank.html', context={})
 
-
+@login_required
 def View_Banks(request):
     user = request.user
     banks = Bank.objects.filter(user=user)
@@ -36,6 +38,8 @@ def View_Banks(request):
     
     return render(request, 'transaction/view-banks.html', context)
 
+
+@login_required
 def UpdateBank(request, id):
     bank_name = None
     bank_account_number = None
@@ -58,6 +62,7 @@ def UpdateBank(request, id):
 
 
 
+@login_required
 def DeleteBank(requuest, id):
     try:
         bank = Bank.objects.get(id=id)
@@ -69,6 +74,7 @@ def DeleteBank(requuest, id):
     return redirect('transaction:view_bank')
 
 
+@login_required
 def deposit_blance(request):
     user = request.user
     try:
@@ -108,6 +114,7 @@ def deposit_blance(request):
 
 
 
+@login_required
 def transection_blance(request):
     send_user = request.user
     user = request.user
@@ -159,6 +166,7 @@ def transection_blance(request):
 
 
 
+@login_required
 def transection_data(request):
     current_user = request.user
     transection_data = Transaction.objects.filter(send_user=current_user)
@@ -170,6 +178,7 @@ def transection_data(request):
     return render(request, 'transaction/transection_data.html', context)
 
 
+@login_required
 def receive_transection(request):
     current_user = request.user
     account_number = request.user.user_profile.account_number
@@ -184,6 +193,7 @@ def receive_transection(request):
 
 
 
+@login_required
 def Add_Income(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -210,6 +220,7 @@ def Add_Income(request):
     return render(request, 'transaction/add_inome.html', context={})
 
 
+@login_required
 def View_Income(request):
     user = request.user
     income_data = Income.objects.filter(user=user)
@@ -217,6 +228,7 @@ def View_Income(request):
     return render(request, 'transaction/view_income.html', context={'income_data':income_data})
 
 
+@login_required
 def UpdateIncome(request, id):
     user = request.user
     try:
@@ -240,7 +252,7 @@ def UpdateIncome(request, id):
     return render(request, 'transaction/update_income.html', context={'income_data':income_data})
 
 
-
+@login_required
 def DeleteIncome(request, id):
     user = request.user
     try:
@@ -253,6 +265,7 @@ def DeleteIncome(request, id):
         return redirect("transaction:view_income")
     
 
+@login_required
 def Add_Express(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -279,12 +292,14 @@ def Add_Express(request):
     return render(request, 'transaction/add_express.html', context={})
 
 
+@login_required
 def View_Express(request):
     user = request.user 
     expreses = Express.objects.filter(user=user)
     return render(request, 'transaction/view_express.html', context={'expreses':expreses})
 
 
+@login_required
 def UpdateExpress(request, id):
     user = request.user
     try:
@@ -308,6 +323,7 @@ def UpdateExpress(request, id):
     return render(request, 'transaction/update_express.html', context={'express_data':express_data})
 
 
+@login_required
 def DeleteExpress(request, id):
     user = request.user
     try:

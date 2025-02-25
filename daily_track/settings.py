@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'home',
     'transactions',
     'utils',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

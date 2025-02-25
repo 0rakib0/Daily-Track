@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-
 from .models import BudgetCategory, Budget
 # Create your views here.
 
-
+@login_required
 def add_budget_cat(request):
     try:
         user = request.user
@@ -36,6 +36,7 @@ def add_budget_cat(request):
     
     
 
+@login_required
 def view_budget_category(request):
     user = request.user
     try:
@@ -46,6 +47,7 @@ def view_budget_category(request):
     return render(request, 'utils/budget_cat.html', context={"categorys":budget_categorys})
 
 
+@login_required
 def delete_budget_cat(request, id):
     user = request.user
     try:
@@ -58,6 +60,7 @@ def delete_budget_cat(request, id):
     return redirect('utils:category_list')
 
 
+@login_required
 def add_badget(request):
     user = request.user
     try:
@@ -98,6 +101,7 @@ def add_badget(request):
     return render(request, 'utils/add_budget.html', context={'categorys':budget_categorys})
 
 
+@login_required
 def view_budget(request):
     user = request.user
     
@@ -110,6 +114,7 @@ def view_budget(request):
     return render(request, 'utils/budget_list.html', context={'budgets':budgets})
 
 
+@login_required
 def update_to_complate(request, id):
     user = request.user
     try:
@@ -124,6 +129,7 @@ def update_to_complate(request, id):
     return redirect('utils:view_budget')
     
 
+@login_required
 def delete_budget(request, id):
     user = request.user
     try:

@@ -38,14 +38,13 @@
 
       <li class="nav-item">
         <a class="nav-link" href="{% url 'transaction:deposit_blance' %}">
-          <i class="typcn typcn-mortar-board menu-icon"></i>
+          <i class="typcn typcn-credit-card menu-icon"></i>
           <span class="menu-title">Deposit Balance</span>
         </a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-          <i class="typcn typcn-film menu-icon"></i>
+          <i class="typcn typcn-briefcase menu-icon"></i>
           <span class="menu-title">Income & Express</span>
           <i class="menu-arrow"></i>
         </a>
@@ -61,7 +60,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="typcn typcn-document-text menu-icon"></i>
+          <i class="typcn typcn-arrow-sync menu-icon"></i>
           <span class="menu-title">Transactions</span>
           <i class="menu-arrow"></i>
         </a>
@@ -75,7 +74,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-          <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+          <i class="typcn typcn-calculator menu-icon"></i>
           <span class="menu-title">Budget</span>
           <i class="menu-arrow"></i>
         </a>
@@ -90,57 +89,84 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-          <i class="typcn typcn-th-small-outline menu-icon"></i>
-          <span class="menu-title">Tables</span>
+          <i class="typcn typcn-mail menu-icon"></i>
+          <span class="menu-title">Send Mail</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="tables">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Shedule Mail</a></li>
+          </ul>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Sent Mail</a></li>
+          </ul>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Faild To Sent</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-          <i class="typcn typcn-compass menu-icon"></i>
-          <span class="menu-title">Icons</span>
+          <i class="typcn typcn-tick menu-icon"></i>
+          <span class="menu-title">Dailly Tasks</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="icons">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Add & View Tasks</a></li>
+          </ul>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Pending Task</a></li>
+          </ul>
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Complate Task</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-          <i class="typcn typcn-user-add-outline menu-icon"></i>
-          <span class="menu-title">User Pages</span>
+          <i class="typcn typcn-document-text menu-icon"></i>
+          <span class="menu-title">Important Notes</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="auth">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html">Add Note</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">View All Notes </a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-          <i class="typcn typcn-globe-outline menu-icon"></i>
-          <span class="menu-title">Error pages</span>
+        <a class="nav-link" data-toggle="collapse" href="#Futureworkd" aria-expanded="false" aria-controls="Futureworkd">
+          <i class="typcn typcn-calendar menu-icon"></i>
+          <span class="menu-title">Future Work</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="error">
+        <div class="collapse" id="Futureworkd">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> Shedule Work </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Pending Work </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Complated Work </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#projectpln" aria-expanded="false" aria-controls="projectpln">
+          <i class="typcn typcn-flow-merge menu-icon"></i>
+          <span class="menu-title">Project Plan</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="projectpln">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> Add Project </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Add Projet Plan </a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> All Projet Plan </a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'logout' %}">
-          <i class="typcn typcn-mortar-board menu-icon"></i>
+          <i class="typcn typcn-eject menu-icon"></i>
           <span class="menu-title">Logout</span>
         </a>
       </li>
