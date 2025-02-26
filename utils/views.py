@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import BudgetCategory, Budget, SheduleMail
-from .forms import ShedulemailForm
+from .models import BudgetCategory, Budget, SheduleMail, Note
+from .forms import ShedulemailForm, NoteForm
 # Create your views here.
 
 @login_required
@@ -179,3 +179,20 @@ def DeleteMail(request, id):
     mail.delete()
     messages.success(request, "Mail successfully deleted!")
     return redirect('utils:sent_mail')
+
+
+@login_required
+def AddNote(request):
+    if request.method == "POST":
+        form_data = NoteForm(request.POST)
+        if form_data.is_valid():
+            note = form_data.save(commit=False)
+            note.user = request.user
+            note.save()
+            messages.success(request, "Note Successfully added")
+            return redirect('utils:add_note')
+        else:
+            messages.error(request, "Note Not save!", form_data.errors)
+            return redirect('utils:add_note')
+    form = NoteForm()
+    return render(request, 'utils/add_note.html', context={'form':form})

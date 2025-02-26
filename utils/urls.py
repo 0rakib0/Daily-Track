@@ -14,4 +14,5 @@ urlpatterns = [
     path('shedule-mail/', views.SendMail, name='send_mail'),
     path('sent-mail-list/', views.SentMail, name='sent_mail'),
     path('delete-mail/<id>/', views.DeleteMail, name='delete_mail'),
+    path('add-note/', views.AddNote, name='add_note')
 ]
