@@ -36,7 +36,7 @@
                   {{category.cat_name}}
                 </td>
                 <td>
-                  <span class="badge badge-danger" style="cursor: pointer" onclick="confirmDelete({{category.id}})" data-toggle="modal" data-target="#exampleModal">Delete</span>
+                  <span class="badge badge-danger" style="cursor: pointer" onclick="deleteConfirmation({{category.id}},'budget_cat')" data-toggle="modal" data-target="#exampleModal">Delete</span>
                 </td>
               </tr>
             {% endfor %}
@@ -68,7 +68,7 @@
         </div>
       </div>      
       <div class="modal-footer">
-        <a id="category_delete" class="badge badge-danger">Delete It</a>
+        <a id="delete" class="badge badge-danger">Delete It</a>
       </div>
     </div>
   </div>

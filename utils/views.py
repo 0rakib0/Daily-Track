@@ -143,7 +143,7 @@ def delete_budget(request, id):
     messages.success(request, 'Budget successfully deleted!')
     return redirect('utils:view_budget')
 
-
+@login_required
 def SendMail(request):
     if request.method == 'POST':
         form_data = ShedulemailForm(request.POST)
@@ -159,3 +159,23 @@ def SendMail(request):
             return redirect('utils:send_mail')
     form = ShedulemailForm()
     return render(request, 'utils/sendmail.html', context = {'form':form})
+
+@login_required
+def SentMail(request):
+    user = request.user
+    sent_mails = SheduleMail.objects.filter(Q(is_sent=True) & Q(user=user))
+    return render(request, 'utils/sentmail.html', context={'sent_mails':sent_mails})
+
+
+
+@login_required
+def DeleteMail(request, id):
+    user = request.user
+    try:
+        mail = SheduleMail.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, f"Mail not delete, Error: {e}!")
+        return redirect('utils:sent_mail')
+    mail.delete()
+    messages.success(request, "Mail successfully deleted!")
+    return redirect('utils:sent_mail')
