@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import BudgetCategory, Budget
+from .models import BudgetCategory, Budget, SheduleMail
+from .forms import ShedulemailForm
 # Create your views here.
 
 @login_required
@@ -141,3 +142,20 @@ def delete_budget(request, id):
     budget.delete()
     messages.success(request, 'Budget successfully deleted!')
     return redirect('utils:view_budget')
+
+
+def SendMail(request):
+    if request.method == 'POST':
+        form_data = ShedulemailForm(request.POST)
+        print(form_data)
+        if form_data.is_valid():
+            shedule_mail = form_data.save(commit=False)  # Don't save to DB yet
+            shedule_mail.user = request.user  # Assign logged-in user
+            shedule_mail.save()  # Now save it to the databas
+            messages.success(request, "Mail Successfully Sheduled!")
+            return redirect('utils:send_mail')
+        else:
+            messages.error(request, "Email Not Shedule, Something Wrong!")
+            return redirect('utils:send_mail')
+    form = ShedulemailForm()
+    return render(request, 'utils/sendmail.html', context = {'form':form})

@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete-budget-category/<id>/', views.delete_budget_cat, name='delete_category'),
     path('update-to-complate/<id>/', views.update_to_complate, name='update_to_complate'),
     path('delete-budget/<id>/', views.delete_budget, name='delete_budget'),
+    path('shedule-mail/', views.SendMail, name='send_mail')
 ]

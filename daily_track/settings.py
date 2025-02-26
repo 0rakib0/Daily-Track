@@ -36,6 +36,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'daphne',
     'django.contrib.admin',
+    "crispy_forms",
+    "crispy_bootstrap5",
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -47,7 +49,11 @@ INSTALLED_APPS = [
     'transactions',
     'utils',
     'ckeditor',
+    
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

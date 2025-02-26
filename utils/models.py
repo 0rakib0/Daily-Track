@@ -30,15 +30,16 @@ class Budget(models.Model):
 class SheduleMail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     mail_subject = models.CharField(max_length=360)
-    email = models.TextField()
-    sent_to = models.CharField(max_length=266)
+    message = models.TextField()
+    sent_from = models.EmailField(max_length=254, blank=False, null=False)
+    sent_to = models.EmailField(max_length=254, blank=False, null=False)
     is_sent = models.BooleanField(default=False)
-    shedule_date = models.DateField()
+    shedule_date = models.DateField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     
     
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} | {self.mail_subject}"
 
 class Tasks(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
