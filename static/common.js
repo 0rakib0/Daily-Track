@@ -27,10 +27,7 @@ const update = id => {
 
 
 
-// const confirmDeleteBudget = id =>{
-//     let deleteObj = document.getElementById('budget_delete')
 
-// }
 
 
 const deleteConfirmation = (id, item) => {
@@ -41,5 +38,7 @@ const deleteConfirmation = (id, item) => {
         deleteObj.setAttribute('href', `/delete-mail/${id}/`)
     }else if(item === 'budget_cat'){
         deleteObj.setAttribute('href', `/delete-budget-category/${id}/`)
+    }else if(item === 'note'){
+        deleteObj.setAttribute('href', `/delete-note/${id}/`)
     }
 }

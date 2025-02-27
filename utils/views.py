@@ -196,3 +196,46 @@ def AddNote(request):
             return redirect('utils:add_note')
     form = NoteForm()
     return render(request, 'utils/add_note.html', context={'form':form})
+
+
+@login_required
+def ViewNote(request):
+    user = request.user
+    user_notes = Note.objects.filter(user=user)
+    return render(request, 'utils/view_note.html', context={'user_notes':user_notes})
+
+
+@login_required
+def UpdateNote(request, id):
+    user = request.user
+    try:
+        note = Note.objects.filter(Q(id=id) & Q(user=user)).first()
+        if not note:
+            messages.error(request, "Note Not Found!")
+            return redirect('utils:view_note')
+    except Exception as e:
+        messages.error(request, f"Error fetching note: {e}")
+        return redirect('utils:view_note')
+    
+    if request.method == "POST":
+        update_data = NoteForm(request.POST, instance=note)
+        if update_data.is_valid():
+            update_data.save()
+            messages.success(request, "Note sucessfully updated!")
+            return redirect('utils:view_note')
+    form = NoteForm(instance=note)
+    return render(request, 'utils/update_note.html', context={'form':form})
+
+
+
+@login_required
+def DeleteNote(request, id):
+    user = request.user
+    try:
+        note = Note.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, f"Note not delete, Error: {e}!")
+        return redirect('utils:view_note')
+    note.delete()
+    messages.success(request, "Note successfully deleted!")
+    return redirect('utils:view_note')
