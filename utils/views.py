@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import BudgetCategory, Budget, SheduleMail, Note
-from .forms import ShedulemailForm, NoteForm
+from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks
+from .forms import ShedulemailForm, NoteForm, TasksForm
 # Create your views here.
 
 @login_required
@@ -239,3 +239,20 @@ def DeleteNote(request, id):
     note.delete()
     messages.success(request, "Note successfully deleted!")
     return redirect('utils:view_note')
+
+
+@login_required
+def AddTask(request):
+    if request.method == "POST":
+        form_data = TasksForm(request.POST)
+        if form_data.is_valid():
+            tasks = form_data.save(commit=False)
+            tasks.user = request.user
+            tasks.save()
+            messages.success(request, "Tasks Successfully added")
+            return redirect('utils:add_task')
+        else:
+            messages.error(request, "Tasks Not save!", form_data.errors)
+            return redirect('utils:add_task')
+    form = TasksForm()
+    return render(request, 'utils/add_tasks.html', context={'form':form})

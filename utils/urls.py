@@ -18,4 +18,5 @@ urlpatterns = [
     path('view-notes-list/', views.ViewNote, name='view_note'),
     path('delete-note/<id>/', views.DeleteNote, name='delete_note'),
     path('update-note/<id>/', views.UpdateNote, name='update_note'),
+    path('add-task/', views.AddTask, name='add_task'),
 ]
