@@ -256,3 +256,51 @@ def AddTask(request):
             return redirect('utils:add_task')
     form = TasksForm()
     return render(request, 'utils/add_tasks.html', context={'form':form})
+
+
+@login_required
+def ViewPendingTask(request):
+    user = request.user
+    tasks = Tasks.objects.filter(Q(user=user) & Q(is_complated=False))
+    if not tasks:
+        messages.error(request, "There is no pending task available!")
+    
+    return render(request, 'utils/view_pending_tasks.html', context={'tasks':tasks})
+
+@login_required
+def ViewComplateTask(request):
+    user = request.user
+    tasks = Tasks.objects.filter(Q(user=user) & Q(is_complated=True))
+    if not tasks:
+        messages.error(request, "There is no Complate task available!")
+    
+    return render(request, 'utils/view_complate_tasks.html', context={'tasks':tasks})
+
+
+@login_required
+def DeleteTask(request, id):
+    user = request.user
+    try:
+        task = Tasks.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, f"Task not delete, Error: {e}!")
+        return redirect('utils:view_pending_task')
+    task.delete()
+    messages.success(request, "Task successfully deleted!")
+    return redirect('utils:view_pending_task')
+
+
+@login_required 
+def TaskUpdate(request, id):
+    user = request.user
+    try:
+        task = Tasks.objects.filter(Q(id=id) & Q(user=user)).first()
+    except Exception as e:
+        messages.error(request, 'something wrong!')
+        return redirect('utils:view_pending_task')
+
+    task.is_complated = True
+    task.save()
+    messages.success(request, 'Successfully updated!')
+    return redirect('utils:view_pending_task')
+    

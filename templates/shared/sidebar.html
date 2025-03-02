@@ -113,13 +113,13 @@
         </a>
         <div class="collapse" id="icons">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_task' %}">Add & View Tasks</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_task' %}">Add Tasks</a></li>
           </ul>
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Pending Task</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:view_pending_task' %}">Pending Task</a></li>
           </ul>
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Complate Task</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:view_complate_task' %}">Complate Task</a></li>
           </ul>
         </div>
       </li>
