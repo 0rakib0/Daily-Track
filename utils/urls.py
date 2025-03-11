@@ -14,5 +14,14 @@ urlpatterns = [
     path('shedule-mail/', views.SendMail, name='send_mail'),
     path('sent-mail-list/', views.SentMail, name='sent_mail'),
     path('delete-mail/<id>/', views.DeleteMail, name='delete_mail'),
-    path('add-note/', views.AddNote, name='add_note')
+    path('add-note/', views.AddNote, name='add_note'),
+    path('view-notes-list/', views.ViewNote, name='view_note'),
+    path('delete-note/<id>/', views.DeleteNote, name='delete_note'),
+    path('update-note/<id>/', views.UpdateNote, name='update_note'),
+    path('add-task/', views.AddTask, name='add_task'),
+    path('view-pending-task/', views.ViewPendingTask, name='view_pending_task'),
+    path('view-complate-task/', views.ViewComplateTask, name='view_complate_task'),
+    path('delete-task/<id>/', views.DeleteTask, name='delete_task'),
+    path('task-update-to-complate/<id>/', views.TaskUpdate, name='update_task'),
+
 ]

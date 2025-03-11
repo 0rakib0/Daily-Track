@@ -8,15 +8,15 @@
     <div class="card">
       <div class="card-body">
         {% include "shared/messages.html" %}
-        <h4 class="card-title">Add Notes</h4>
+        <h4 class="card-title">Add Tasks</h4>
         <p class="card-description">
-            Add your importent notes
+            Add your dailly tasks
         </p>
         <form class="forms-sample" method="POST">
             {% csrf_token %}
             {{ form.media }}
             {{ form|crispy }}
-          <button type="submit" class="btn btn-primary mr-2 form-control">Add Note</button>
+          <button type="submit" class="btn btn-primary mr-2 form-control">Add Tasks</button>
         </form>
       </div>
     </div>
