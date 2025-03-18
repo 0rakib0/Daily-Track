@@ -1,0 +1,39 @@
+[33m2d51c79[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Save local data
+[33mc74a454[m Save local database changes
+[33m554ef5f[m issue solv
+[33m0980c8f[m complate task section
+[33mce69ab8[m add task
+[33m7781496[m Note add, view and delete
+[33m23989a5[m add note
+[33mcb103fa[m mail shadule data create and delete
+[33mda8076f[m shedule mail data save to DB
+[33m0e0fd66[m design Database
+[33m2a49048[m Profile complate system design
+[33m0bc0ee5[m update first_name, last_name and email system create
+[33m9d9e95e[m title customize
+[33m812cef8[m create login system, register system and logout system
+[33m6a91704[m design login form
+[33md6c1ddc[m add login page and design it
+[33mb7df8a2[m slice budget title in template
+[33mef2af14[m budget delete warning create and design
+[33mb6c526b[m set warning for category delete
+[33m8292214[m create budget update to complate and delete budget options
+[33m23a8ba3[m quick view budget info
+[33m3452541[m create budget and budget category
+[33m0d2842b[m add budget category
+[33mb719926[m dsign add budget category form
+[33mee92c12[m create budget category models and budget models
+[33mb74baff[m whene transectin money sender and reseiver balance also update
+[33mcf01e2c[m whene add amounnt also increase total account balance
+[33m7f3ca93[m transection amount in another bank
+[33m6607e91[m complate income and express section croud oparation
+[33m0f7f9ee[m views income and exxpress frontend design
+[33md6cdb96[m add Income and express system
+[33m36f9b4f[m transection frontend create
+[33m97910a3[m add ammount in account from bank
+[33m161ea00[m delete bank and update bank
+[33mbac4751[m create view bank accounts table and show info
+[33mdbbf001[m add bank account with design
+[33m0054c2a[m add requerments.txt file
+[33mccb9da2[m set asgi application
+[33m438d0aa[m setup project and template

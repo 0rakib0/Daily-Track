@@ -1,5 +1,5 @@
 from django import forms
-from .models import SheduleMail, Note, Tasks
+from .models import SheduleMail, Note, Tasks, FutureWork
 
 class ShedulemailForm(forms.ModelForm):
     class Meta:
@@ -45,4 +45,19 @@ class TasksForm(forms.ModelForm):
                 'rows': 5,  # Adjust height
                 'style': 'display: block; width: 100%;'
             }),
+        }
+        
+class FutureWorkForm(forms.ModelForm):
+    class Meta:
+        model = FutureWork
+        fields = ['title', 'work_details', 'shedule_date']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title'}),
+            'work_details': forms.Textarea(attrs={
+                'class': 'form-control ckdesign', 
+                'placeholder': 'Write work Details...', 
+                'rows': 5,  # Adjust height
+                'style': 'display: block; width: 100%;'
+            }),
+            'shedule_date':forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select a date'}),
         }

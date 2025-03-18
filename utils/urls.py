@@ -23,5 +23,6 @@ urlpatterns = [
     path('view-complate-task/', views.ViewComplateTask, name='view_complate_task'),
     path('delete-task/<id>/', views.DeleteTask, name='delete_task'),
     path('task-update-to-complate/<id>/', views.TaskUpdate, name='update_task'),
+    path('shadule-future-work/', views.ShaduleFutureWork, name='shaduel_work'),
 
 ]

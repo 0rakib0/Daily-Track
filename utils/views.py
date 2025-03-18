@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks
-from .forms import ShedulemailForm, NoteForm, TasksForm
+from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork
+from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm
 # Create your views here.
 
 @login_required
@@ -304,3 +304,8 @@ def TaskUpdate(request, id):
     messages.success(request, 'Successfully updated!')
     return redirect('utils:view_pending_task')
     
+    
+@login_required
+def ShaduleFutureWork(request):
+    form = FutureWorkForm()
+    return render(request, 'utils/futureworkshedule.html', context={'form':form})
