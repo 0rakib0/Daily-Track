@@ -307,5 +307,55 @@ def TaskUpdate(request, id):
     
 @login_required
 def ShaduleFutureWork(request):
+
+    if request.method == 'POST':
+        form_data = FutureWorkForm(request.POST)
+
+        if form_data.is_valid():
+            data = form_data.save(commit=False)
+            data.user = request.user
+            data.save()
+            messages.success(request, "Work successfully shaduled!")
+            return redirect('utils:shaduel_work')
+        else:
+            messages.error(request, f'Somethingk wrong: {form_data.errors}')
+            return redirect('utils:shaduel_work')
+
     form = FutureWorkForm()
     return render(request, 'utils/futureworkshedule.html', context={'form':form})
+
+
+@login_required
+def PendingShaduledWork(request):
+    pending_works = FutureWork.objects.filter(Q(user=request.user) & Q(is_done=False))
+    if pending_works:
+        context = {'pending_works':pending_works}
+    else:
+        messages.warning(request, 'No pending work available!')
+    
+    return render(request, 'utils/pending_work.html', context)
+
+@login_required
+def UpdateWork(request, id):
+    try:
+        pending_work = FutureWork.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if pending_work:
+            pending_work.is_done = True
+            pending_work.save()
+            messages.success(request, "Work successfully update to done!")
+            return redirect("utils:pending_work")
+    except FutureWork.DoesNotExist:
+        messages.error(request, "Future Work Does not exit!")
+        return redirect("utils:pending_work")
+
+@login_required
+def DeleteWork(request, id):
+    try:
+        pending_work = FutureWork.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if pending_work:
+            pending_work.delete()
+            messages.success(request, "Work successfully deleted!")
+            return redirect("utils:pending_work")
+    except FutureWork.DoesNotExist:
+        messages.error(request, "Future Work Does not exit!")
+        return redirect("utils:pending_work")

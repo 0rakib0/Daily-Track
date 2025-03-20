@@ -24,5 +24,8 @@ urlpatterns = [
     path('delete-task/<id>/', views.DeleteTask, name='delete_task'),
     path('task-update-to-complate/<id>/', views.TaskUpdate, name='update_task'),
     path('shadule-future-work/', views.ShaduleFutureWork, name='shaduel_work'),
+    path('pending-work/', views.PendingShaduledWork, name='pending_work'),
+    path('update-work/<int:id>/', views.UpdateWork, name='update_work'),
+    path('delete-work/<int:id>/', views.DeleteWork, name='delete_work'),
 
 ]
