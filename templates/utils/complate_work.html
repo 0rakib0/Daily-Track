@@ -7,9 +7,9 @@
     <div class="card">
         <div class="card-body">
             {% include "shared/messages.html" %}
-            <h4 class="card-title">Pending work List</h4>
+            <h4 class="card-title">Complate Work List</h4>
             <p class="card-description">
-                Your <code>.pending work List</code>
+                Your <code>.complate work List</code>
             </p>
             <div class="table-responsive pt-3">
                 <table class="table table-bordered">
@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for pending_work in pending_works %}
+                        {% for pending_work in complate_works %}
                         <tr>
                             <td>
                                 {{forloop.counter}}
@@ -51,7 +51,7 @@
                                 {{pending_work.shedule_date|date:"d F Y"}}...
                             </td>
                             <td>
-                                <span class="badge badge-info">Pending</span>
+                                <span class="badge" style="background-color: #57c7d4; color: white;">Completed</span>
                             </td>
                             <td>
                                 <span class="badge badge-danger" style="cursor: pointer"

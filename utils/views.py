@@ -327,6 +327,7 @@ def ShaduleFutureWork(request):
 
 @login_required
 def PendingShaduledWork(request):
+    context = None
     pending_works = FutureWork.objects.filter(Q(user=request.user) & Q(is_done=False))
     if pending_works:
         context = {'pending_works':pending_works}
@@ -334,6 +335,19 @@ def PendingShaduledWork(request):
         messages.warning(request, 'No pending work available!')
     
     return render(request, 'utils/pending_work.html', context)
+
+
+@login_required
+def ComplateShaduleWork(request):
+    complate_works = FutureWork.objects.filter(Q(user=request.user) & Q(is_done=True))
+    if complate_works:
+        context = {'complate_works':complate_works}
+    else:
+        messages.warning(request, 'No complate work available!')
+    
+    return render(request, 'utils/complate_work.html', context)
+
+
 
 @login_required
 def UpdateWork(request, id):
@@ -351,9 +365,9 @@ def UpdateWork(request, id):
 @login_required
 def DeleteWork(request, id):
     try:
-        pending_work = FutureWork.objects.filter(Q(user=request.user) & Q(id=id)).first()
-        if pending_work:
-            pending_work.delete()
+        work = FutureWork.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if work:
+            work.delete()
             messages.success(request, "Work successfully deleted!")
             return redirect("utils:pending_work")
     except FutureWork.DoesNotExist:

@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
+    # 'daphne',
     'django.contrib.admin',
     "crispy_forms",
     "crispy_bootstrap5",

@@ -67,5 +67,7 @@ const deleteConfirmation = (id, item) => {
         deleteObj.setAttribute('href', `/delete-note/${id}/`)
     }else if(item === 'task'){
         deleteObj.setAttribute('href', `/delete-task/${id}/`)
+    }else if(item === 'work'){
+        deleteObj.setAttribute('href', `/delete-work/${id}/`)
     }
 }
