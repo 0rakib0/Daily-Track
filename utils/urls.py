@@ -29,5 +29,6 @@ urlpatterns = [
     path('update-work/<int:id>/', views.UpdateWork, name='update_work'),
     path('delete-work/<int:id>/', views.DeleteWork, name='delete_work'),
     path('add-project/', views.AddProject, name='add_project'),
+    path('add-project-plan/', views.AddProjectPlaning, name='add_project_plan'),
 
 ]

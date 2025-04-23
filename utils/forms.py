@@ -91,4 +91,13 @@ class ProjectForm(forms.ModelForm):
 class ProjectPlanForm(forms.ModelForm):
     class Meta:
         model = ProjectPlan
-        fields = []
+        fields = ['project', 'date', 'topic_list']
+        widgets = {
+            'date':forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select a date'}),
+            'topic_list': forms.Textarea(attrs={
+                'class': 'form-control ckdesign', 
+                'placeholder': 'Write all topic list...', 
+                'rows': 5,  # Adjust height
+                'style': 'display: block; width: 100%;'
+            }),
+        }
