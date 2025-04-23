@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork
-from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm
+from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork, Project
+from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm, ProjectForm
 # Create your views here.
 
 @login_required
@@ -373,3 +373,39 @@ def DeleteWork(request, id):
     except FutureWork.DoesNotExist:
         messages.error(request, "Future Work Does not exit!")
         return redirect("utils:pending_work")
+    
+    
+@login_required
+def AddProject(request):
+    if request.method == 'POST':
+        form_data = ProjectForm(request.POST)
+
+        if form_data.is_valid():
+            data = form_data.save(commit=False)
+            data.user = request.user
+            data.save()
+            messages.success(request, "Project successfully added!")
+            return redirect('utils:add_project')
+        else:
+            messages.error(request, f'Somethingk wrong: {form_data.errors}')
+            return redirect('utils:add_project')
+    form = ProjectForm()
+    return render(request, 'utils/add_project.html', context={'form':form})
+
+
+@login_required
+def AddProjectPlaning(request):
+    if request.method == 'POST':
+        form_data = ProjectForm(request.POST)
+
+        if form_data.is_valid():
+            data = form_data.save(commit=False)
+            data.user = request.user
+            data.save()
+            messages.success(request, "Project successfully added!")
+            return redirect('utils:add_project')
+        else:
+            messages.error(request, f'Somethingk wrong: {form_data.errors}')
+            return redirect('utils:add_project')
+    form = ProjectForm()
+    return render(request, 'utils/add_project.html', context={'form':form})

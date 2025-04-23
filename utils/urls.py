@@ -28,5 +28,6 @@ urlpatterns = [
     path('complate-work/', views.ComplateShaduleWork, name='complate_work'),
     path('update-work/<int:id>/', views.UpdateWork, name='update_work'),
     path('delete-work/<int:id>/', views.DeleteWork, name='delete_work'),
+    path('add-project/', views.AddProject, name='add_project'),
 
 ]

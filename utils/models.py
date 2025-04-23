@@ -79,6 +79,7 @@ class Project(models.Model):
     project_details = RichTextField()
     what_problem_solvIt = models.TextField()
     project_live_link = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.project_name

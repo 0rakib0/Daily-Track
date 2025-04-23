@@ -1,5 +1,5 @@
 from django import forms
-from .models import SheduleMail, Note, Tasks, FutureWork
+from .models import SheduleMail, Note, Tasks, FutureWork, Project, ProjectPlan
 
 class ShedulemailForm(forms.ModelForm):
     class Meta:
@@ -61,3 +61,34 @@ class FutureWorkForm(forms.ModelForm):
             }),
             'shedule_date':forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select a date'}),
         }
+        
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['project_name', 'project_details', 'what_problem_solvIt', 'project_live_link']
+        widgets = {
+            'project_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter project name'}),
+            'project_details': forms.Textarea(attrs={
+                'class': 'form-control ckdesign', 
+                'placeholder': 'Write project Details...', 
+                'rows': 5,  # Adjust height
+                'style': 'display: block; width: 100%;'
+            }),
+            'what_problem_solvIt': forms.Textarea(attrs={
+                'class': 'form-control ckdesign', 
+                'placeholder': 'whats type of problem solv this project ...', 
+                'rows': 5,  # Adjust height
+                'style': 'display: block; width: 100%;'
+            }),
+            'project_live_link': forms.Textarea(attrs={
+                'class': 'form-control ckdesign', 
+                'placeholder': 'Project ive link if complate...', 
+                'rows': 5,  # Adjust height
+                'style': 'display: block; width: 100%;'
+            }),
+        }
+        
+class ProjectPlanForm(forms.ModelForm):
+    class Meta:
+        model = ProjectPlan
+        fields = []
