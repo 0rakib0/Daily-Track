@@ -158,9 +158,9 @@
         </a>
         <div class="collapse" id="projectpln">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> Add Project </a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> Add Projet Plan </a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> All Projet Plan </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_project' %}"> Add Project </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:add_project_plan' %}"> Add Projet Plan </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:all_projects' %}"> All Projet</a></li>
           </ul>
         </div>
       </li>

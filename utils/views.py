@@ -394,6 +394,16 @@ def AddProject(request):
 
 
 @login_required
+def AllProject(request):
+    projects_list = Project.objects.filter(Q(user=request.user))
+    if projects_list:
+        context = {'projects_list':projects_list}
+    else:
+        messages.warning(request, 'No projects available right now!')
+    return render(request, 'utils/all_projects.html', context)
+
+
+@login_required
 def AddProjectPlaning(request):
     if request.method == 'POST':
         form_data = ProjectPlanForm(request.POST)

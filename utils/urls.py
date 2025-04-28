@@ -30,5 +30,6 @@ urlpatterns = [
     path('delete-work/<int:id>/', views.DeleteWork, name='delete_work'),
     path('add-project/', views.AddProject, name='add_project'),
     path('add-project-plan/', views.AddProjectPlaning, name='add_project_plan'),
+    path('all-project-list/', views.AllProject, name='all_projects')
 
 ]

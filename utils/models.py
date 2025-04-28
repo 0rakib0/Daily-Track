@@ -78,6 +78,8 @@ class Project(models.Model):
     project_name = models.CharField(max_length=166)
     project_details = RichTextField()
     what_problem_solvIt = models.TextField()
+    project_status = models.BooleanField(default=False)
+    project_duration = models.IntegerField(default=1)
     project_live_link = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
