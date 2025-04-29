@@ -428,6 +428,20 @@ def UpdateProject(request, id):
     return render(request, 'utils/update_project.html', context={'form':form})
 
 
+
+@login_required
+def DeleteProject(request, id):
+    try:
+        project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
+    except Exception as e:
+        messages.error(request, f'Somethingk wrong: {e}')
+        return redirect('utils:add_project_plan')
+    
+    project.delete()
+    messages.success(request, "Project Data successfully deleted!")
+    return redirect('utils:all_projects')
+
+
 @login_required
 def AddProjectPlaning(request):
     if request.method == 'POST':
@@ -444,16 +458,3 @@ def AddProjectPlaning(request):
             return redirect('utils:add_project_plan')
     form = ProjectPlanForm()
     return render(request, 'utils/add_project_plan.html', context={'form':form})
-
-
-@login_required
-def DeleteProject(request, id):
-    try:
-        project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
-    except Exception as e:
-        messages.error(request, f'Somethingk wrong: {e}')
-        return redirect('utils:add_project_plan')
-    
-    project.delete()
-    messages.success(request, "Project Data successfully deleted!")
-    return redirect('utils:all_projects')
