@@ -65,7 +65,7 @@ class FutureWorkForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['project_name', 'project_details', 'what_problem_solvIt', 'project_live_link']
+        fields = ['project_name', 'project_details', 'what_problem_solvIt', 'project_status','project_live_link']
         widgets = {
             'project_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter project name'}),
             'project_details': forms.Textarea(attrs={

@@ -62,7 +62,7 @@
                                 <span class="badge badge-danger" style="cursor: pointer"
                                     onclick="deleteConfirmation({{project.id}}, 'project')" data-toggle="modal"
                                     data-target="#exampleModal">Delete</span>
-                                <a href="" class="badge badge-success">Update</a>
+                                <a href="{% url 'utils:update_project' id=project.id %}" class="badge badge-success">Update</a>
                                 <a href="" class="badge badge-info">View Project Plan</a>
 
 
@@ -109,7 +109,7 @@
                                                     <strong class="text-dark">
                                                         <i class="fas fa-calendar-alt" style="color: #57c7d4;"></i> Project Live Link:
                                                       </strong>
-                                                      <span class="text-muted">{{ project.project_live_link}}</span>
+                                                      <a href="{{project.project_live_link}}" target="_blank">Review Project</a>
                                                 </p>
                         
                                                   <p class="mb-0">
@@ -154,7 +154,7 @@
                     <i class="fas fa-exclamation-triangle" style="font-size: 24px; margin-right: 15px;"></i>
                     <div>
                         <strong>Warning!</strong><br>
-                        <p style="margin: 0;">If you delete this Task from your Task list, you cannot restored it
+                        <p style="margin: 0;">If you delete this Project from your Project list, you cannot restored it
                             again.</p>
                     </div>
                 </div>

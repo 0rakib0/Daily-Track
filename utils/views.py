@@ -404,6 +404,31 @@ def AllProject(request):
 
 
 @login_required
+def UpdateProject(request, id):
+    try:
+        project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if not project:
+            messages.error(request, "Project Not Found!")
+            return redirect('utils:all_projects')
+    except Exception as e:
+        messages.error(request, f"Error fetching project: {e}")
+        return redirect('utils:all_projects')
+    
+    if request.method == "POST":
+        form_data = ProjectForm(request.POST, instance=project)
+        if form_data.is_valid():
+            form_data.save()
+            messages.success(request, "Project Successfully updated!")
+            return redirect('utils:all_projects')
+        else:
+            messages.error(request, "Project not updated! somethink wrong!")
+            return redirect('utils:all_projects')
+    
+    form = ProjectForm(instance=project)
+    return render(request, 'utils/update_project.html', context={'form':form})
+
+
+@login_required
 def AddProjectPlaning(request):
     if request.method == 'POST':
         form_data = ProjectPlanForm(request.POST)
@@ -419,3 +444,16 @@ def AddProjectPlaning(request):
             return redirect('utils:add_project_plan')
     form = ProjectPlanForm()
     return render(request, 'utils/add_project_plan.html', context={'form':form})
+
+
+@login_required
+def DeleteProject(request, id):
+    try:
+        project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
+    except Exception as e:
+        messages.error(request, f'Somethingk wrong: {e}')
+        return redirect('utils:add_project_plan')
+    
+    project.delete()
+    messages.success(request, "Project Data successfully deleted!")
+    return redirect('utils:all_projects')
