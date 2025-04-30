@@ -91,6 +91,7 @@ class ProjectPlan(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     date = models.DateField()
     topic_list =RichTextField()
+    status = models.BooleanField(default=False)
     create_att = models.DateTimeField(auto_now_add=True)
     
     

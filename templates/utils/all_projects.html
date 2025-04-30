@@ -63,7 +63,7 @@
                                     onclick="deleteConfirmation({{project.id}}, 'project')" data-toggle="modal"
                                     data-target="#exampleModal">Delete</span>
                                 <a href="{% url 'utils:update_project' id=project.id %}" class="badge badge-success">Update</a>
-                                <a href="" class="badge badge-info">View Project Plan</a>
+                                <a href="{% url 'utils:view_project_plan' id=project.id %}" class="badge badge-info">View Project Plan</a>
 
 
                                 <!-- Modal -->

@@ -33,5 +33,9 @@ urlpatterns = [
     path('all-project-list/', views.AllProject, name='all_projects'),
     path('updat-project/<int:id>/', views.UpdateProject, name='update_project'),
     path('delete-project/<int:id>/', views.DeleteProject, name='delete_project'),
+    path('view-project-plan/<int:id>/', views.ViewPerojectPlan, name='view_project_plan'),
+    path('update-project-plan/<int:id>/', views.UpdateProjectPlan, name='update_project_plan'),
+    path('delete-project-plan/<int:id>/', views.DeleteProjectPlan, name='delete_project_plan'),
+    
 
 ]

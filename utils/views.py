@@ -458,3 +458,56 @@ def AddProjectPlaning(request):
             return redirect('utils:add_project_plan')
     form = ProjectPlanForm()
     return render(request, 'utils/add_project_plan.html', context={'form':form})
+
+
+
+@login_required
+def ViewPerojectPlan(request, id):
+    try:
+        project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        project_plan = ProjectPlan.objects.filter(Q(project=project) & Q(user=request.user))
+    except Project.DoesNotExist:
+        messages.error(request, "Project Does Not Fount, something wrong!")
+        return redirect('utils:all_projects')
+    
+    print(project_plan)
+    
+    return render(request, 'utils/project_plans.html', context={'project_plan':project_plan})
+
+
+@login_required
+def UpdateProjectPlan(request, id):
+    try:
+        project_plan = ProjectPlan.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if not project_plan:
+            messages.error(request, "Project plan Not Found!")
+            return redirect('utils:all_projects')
+    except Exception as e:
+        messages.error(request, f"Error fetching project: {e}")
+        return redirect('utils:all_projects')
+    
+    if request.method == "POST":
+        form_data = ProjectPlanForm(request.POST, instance=project_plan)
+        if form_data.is_valid():
+            form_data.save()
+            messages.success(request, "Project Plan Successfully updated!")
+            return redirect('utils:all_projects')
+        else:
+            messages.error(request, "Project plan not updated! somethink wrong!")
+            return redirect('utils:all_projects')
+    
+    form = ProjectPlanForm(instance=project_plan)
+    return render(request, 'utils/update_project_plan.html', context={'form':form})
+
+
+@login_required
+def DeleteProjectPlan(request, id):
+    try:
+        project_plan = ProjectPlan.objects.filter(Q(user=request.user) & Q(id=id)).first()
+    except Exception as e:
+        messages.error(request, f'Somethingk wrong: {e}')
+        return redirect('utils:add_project_plan')
+    
+    project_plan.delete()
+    messages.success(request, "Project Data successfully deleted!")
+    return redirect('utils:all_projects')
