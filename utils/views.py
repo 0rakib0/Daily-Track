@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork, Project, ProjectPlan
 from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm, ProjectForm, ProjectPlanForm
+from datetime import date
 # Create your views here.
 
 @login_required
@@ -463,16 +464,18 @@ def AddProjectPlaning(request):
 
 @login_required
 def ViewPerojectPlan(request, id):
+    todays_date = today = date.today()
     try:
         project = Project.objects.filter(Q(user=request.user) & Q(id=id)).first()
         project_plan = ProjectPlan.objects.filter(Q(project=project) & Q(user=request.user))
+        todays_project_plan = ProjectPlan.objects.filter(Q(project=project) & Q(date=todays_date)).first()
     except Project.DoesNotExist:
         messages.error(request, "Project Does Not Fount, something wrong!")
         return redirect('utils:all_projects')
     
     print(project_plan)
     
-    return render(request, 'utils/project_plans.html', context={'project_plan':project_plan})
+    return render(request, 'utils/project_plans.html', context={'project_plan':project_plan, 'todays_project_plan':todays_project_plan})
 
 
 @login_required
