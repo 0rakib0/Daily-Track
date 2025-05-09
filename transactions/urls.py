@@ -9,6 +9,7 @@ urlpatterns = [
     path("update/<int:id>/", views.UpdateBank, name="update_bank"),
     path('delete-bank/<int:id>/', views.DeleteBank, name='delete_bank'),
     path('deposit-blance/', views.deposit_blance, name='deposit_blance'),
+    path('total-blance/', views.TotalBlance, name='total_blance'),
     path('transection-amount/', views.transection_blance, name='transection_blance'),
     path('transection-data/', views.transection_data, name='transection_data'),
     path('receive-transection/', views.receive_transection, name='receive_transection'),

@@ -61,7 +61,50 @@
                 </td>
                 <td>
                   <a href="" class="badge badge-danger">Delete</a>
-                  <a href="" class="badge badge-info">View</a>
+                  <a href="" class="badge badge-success" data-toggle="modal"
+                    data-target="#exampleModalCenter{{ data.id }}">View</a>
+
+                    <div class="modal fade" id="exampleModalCenter{{ data.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle{{ data.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle{{ data.id }}">Transaction Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                      
+                            <div class="modal-body">
+                      
+                              <div class="card border p-3 shadow-sm">
+                                <div class="mb-2">
+                                  <strong class="text-dark">Sender:</strong> {{ data.send_user }}
+                                </div>
+                      
+                                <div class="mb-2">
+                                  <strong class="text-dark">Account Number:</strong> {{ data.send_user.user_profile.account_number }}
+                                </div>
+                      
+                                <div class="mb-2">
+                                  <strong class="text-dark">Amount:</strong> ৳ {{ data.amount }}
+                                </div>
+                      
+                                <div class="mb-2">
+                                  <strong class="text-dark">Note:</strong>
+                                  <p class="mb-0">{{ data.note|linebreaks }}</p>
+                                </div>
+                      
+                                <div class="mb-2">
+                                  <strong class="text-dark">Date:</strong> {{ data.transection_date|date:"d F Y" }}
+                                </div>
+                              </div>
+                      
+                            </div>
+                      
+                          </div>
+                        </div>
+                      </div>
                 </td>
               </tr>
             {% endfor %}

@@ -113,6 +113,12 @@ def deposit_blance(request):
     return render(request, 'transaction/deposit_blance.html', context={'banks':banks})
 
 
+@login_required
+def TotalBlance(request):
+    total_plance = TotalBalance.objects.get(user=request.user)
+    account_number = request.user.user_profile.account_number
+    receiver_transection_data = Transaction.objects.filter(Q(receive_user=request.user) & Q(account_number=account_number))
+    return render(request, 'transaction/total_plance.html', context={'total_plance':total_plance, 'receiver_transection_data':receiver_transection_data})
 
 @login_required
 def transection_blance(request):
