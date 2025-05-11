@@ -83,7 +83,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for express in expreses %}
+              {% for express in recent_expenses %}
               <tr>
                 <td>
                   {{forloop.counter}}
@@ -147,7 +147,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for income in income_data %}
+            {% for income in recent_income %}
               <tr>
                 <td>
                   {{forloop.counter}}
@@ -212,7 +212,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for data in receive_transection %}
+              {% for data in recent_receive_transection %}
               <tr>
                 <td>
                   {{forloop.counter}}
