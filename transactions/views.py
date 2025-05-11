@@ -145,7 +145,6 @@ def transection_blance(request):
             return redirect('transaction:transection_blance')
         
         sender_total = sender_total_balance.balance
-        print(sender_total)
         
         if sender_total < float_amount:
             messages.error(request, f'You have not available blance. Your balance is {sender_total} tk')
@@ -202,6 +201,7 @@ def receive_transection(request):
 @login_required
 def Add_Income(request):
     if request.method == 'POST':
+        total_blance = TotalBalance.objects.get(user=request.user)
         amount = request.POST.get('amount')
         income_source = request.POST.get('income_source')
         income_category = request.POST.get('income_category')
@@ -215,6 +215,8 @@ def Add_Income(request):
                 note = note
             )
             income.save()
+            total_blance.balance += float(amount)
+            total_blance.save()
             messages.success(request, "Income successfully Added!")
             return redirect('transaction:add_income')
         except IntegrityError:
@@ -274,10 +276,16 @@ def DeleteIncome(request, id):
 @login_required
 def Add_Express(request):
     if request.method == 'POST':
+        total_blance = TotalBalance.objects.get(user=request.user)
         amount = request.POST.get('amount')
         purpose = request.POST.get('purpose')
         express_category = request.POST.get('express_category')
         note = request.POST.get('note')
+        
+        if total_blance.balance < int(amount):
+            messages.error(request, "You do not have anought amount for expense")
+            return redirect('transaction:add_express')
+        
         try:
             express = Express.objects.create(
                 user = request.user,
@@ -287,6 +295,8 @@ def Add_Express(request):
                 note = note
             )
             express.save()
+            total_blance.balance -= float(amount)
+            total_blance.save()
             messages.success(request, "Express successfully Added!")
             return redirect('transaction:add_express')
         except IntegrityError:
