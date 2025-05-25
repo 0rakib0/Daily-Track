@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from .task import Shadule_Transection
+from datetime import datetime
+from django.utils.timezone import make_aware
 # Create your views here.
 
 @login_required
@@ -136,6 +139,8 @@ def transection_blance(request):
         amount = request.POST.get('amount')
         float_amount = float(amount)
         note = request.POST.get('note')
+        instant_transect = request.POST.get('instant_transect')
+        shadule_transection = request.POST.get('shadule_transection')
         
         try:
             receive_user = User.objects.get(username=username)
@@ -150,22 +155,42 @@ def transection_blance(request):
             messages.error(request, f'You have not available blance. Your balance is {sender_total} tk')
             return redirect('transaction:transection_blance')
         else:
-            transection = Transaction(
-                send_user = send_user,
-                receive_user = receive_user,
-                account_number = account_number,
-                amount = float_amount,
-                note = note
-            )
-            transection.save()
-            sender_total_balance.balance -= float_amount
-            sender_total_balance.save()
-            
-            receiver_total_balance.balance += float_amount
-            receiver_total_balance.save()
-            
-            messages.success(request, 'Transection successfully complated!')
-            return redirect('transaction:transection_blance')
+            if instant_transect:
+                transection = Transaction(
+                    send_user = send_user,
+                    receive_user = receive_user,
+                    account_number = account_number,
+                    amount = float_amount,
+                    note = note
+                )
+                transection.save()
+                sender_total_balance.balance -= float_amount
+                sender_total_balance.save()
+                
+                receiver_total_balance.balance += float_amount
+                receiver_total_balance.save()
+                
+                messages.success(request, 'Transection successfully complated!')
+                return redirect('transaction:transection_blance')
+            else:
+                if shadule_transection:
+                    formated_datetime = datetime.strptime(shadule_transection, "%Y-%m-%dT%H:%M")
+                    aware_dt = make_aware(formated_datetime)
+                    
+                    shaduled_task = Shadule_Transection.apply_async(
+                        args = [send_user.id, receive_user.id, account_number, float_amount, note],
+                        eta=aware_dt
+                    )
+                    
+                    if shaduled_task.id:
+                        messages.success(request, 'Transection successfully shaduled!')
+                        return redirect('transaction:transection_blance')
+                    else:
+                        messages.error(request, 'transection not shaduled. something wrong!')
+                        return redirect('transaction:transection_blance')
+                else:
+                    messages.error(request, 'Please provid shaduled date for transectiuon later!')
+                    return redirect('transaction:transection_blance')
         
     return render(request, 'transaction/transection.html', context={})
 

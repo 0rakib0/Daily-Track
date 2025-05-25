@@ -4,39 +4,51 @@
 {% block body %}
 
 <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        {% include "shared/messages.html" %}
-        <h4 class="card-title">Transection Blance</h4>
-        <p class="card-description">
-          Transection blance to other account
-        </p>
-        <form class="forms-sample" method="POST">
-            {% csrf_token %}
+  <div class="card">
+    <div class="card-body">
+      {% include "shared/messages.html" %}
+      <h4 class="card-title">Transection Blance</h4>
+      <p class="card-description">
+        Transection blance to other account
+      </p>
+      <form class="forms-sample" method="POST">
+        {% csrf_token %}
 
-            <div class="form-group">
-              <label for="exampleInputName1">Account Number</label>
-              <input type="text" name="account_number" class="form-control" id="exampleInputName1" required placeholder="Enter Account number">
-            </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Account Number</label>
+          <input type="text" name="account_number" class="form-control" id="exampleInputName1" required
+            placeholder="Enter Account number">
+        </div>
 
-            <div class="form-group">
-              <label for="exampleInputName1">User Name</label>
-              <input type="text" name="username" class="form-control" id="exampleInputName1" required placeholder="Enter User Name">
-            </div>
+        <div class="form-group">
+          <label for="exampleInputName1">User Name</label>
+          <input type="text" name="username" class="form-control" id="exampleInputName1" required
+            placeholder="Enter User Name">
+        </div>
 
-            <div class="form-group">
-              <label for="exampleInputName1">Amount</label>
-              <input type="number" name="amount" class="form-control" id="exampleInputName1" required placeholder="Enter Amount">
-            </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Amount</label>
+          <input type="number" name="amount" class="form-control" id="exampleInputName1" required
+            placeholder="Enter Amount">
+        </div>
 
-          <div class="form-group">
-            <label for="exampleInputName1">Note</label>
-            <input type="text" name="note" class="form-control" id="exampleInputName1" placeholder="Write a short note for deposite">
-          </div>
-          <button type="submit" class="btn btn-primary mr-2 form-control">Transection Amount</button>
-        </form>
-      </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Note</label>
+          <input type="text" name="note" class="form-control" id="exampleInputName1"
+            placeholder="Write a short note for deposite">
+        </div>
+        <div class="form-group ml-4">
+          <input type="checkbox" name="instant_transect" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Instant transection</label>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Shadule Transection</label>
+          <input type="datetime-local" name="shadule_transection" class="form-control" id="exampleInputName1">
+        </div>
+        <button type="submit" class="btn btn-primary mr-2 form-control">Transection Amount</button>
+      </form>
     </div>
   </div>
+</div>
 
 {% endblock %}

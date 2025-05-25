@@ -7,6 +7,8 @@ from django.db.models import Q
 from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork, Project, ProjectPlan
 from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm, ProjectForm, ProjectPlanForm
 from datetime import date
+from .task import test_task
+from django.http import HttpResponse
 # Create your views here.
 
 @login_required
@@ -514,3 +516,17 @@ def DeleteProjectPlan(request, id):
     project_plan.delete()
     messages.success(request, "Project Data successfully deleted!")
     return redirect('utils:all_projects')
+
+
+
+
+
+
+
+
+
+
+
+def test_celery(request):
+    result = test_task.delay()
+    return HttpResponse("Task Susseccfully shaduled!")
