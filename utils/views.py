@@ -7,8 +7,10 @@ from django.db.models import Q
 from .models import BudgetCategory, Budget, SheduleMail, Note, Tasks, FutureWork, Project, ProjectPlan
 from .forms import ShedulemailForm, NoteForm, TasksForm, FutureWorkForm, ProjectForm, ProjectPlanForm
 from datetime import date
-from .task import test_task
 from django.http import HttpResponse
+from .tasks import SendMial
+from datetime import datetime
+from django.utils.timezone import make_aware
 # Create your views here.
 
 @login_required
@@ -150,15 +152,31 @@ def delete_budget(request, id):
 def SendMail(request):
     if request.method == 'POST':
         form_data = ShedulemailForm(request.POST)
-        print(form_data)
         if form_data.is_valid():
-            shedule_mail = form_data.save(commit=False)  # Don't save to DB yet
-            shedule_mail.user = request.user  # Assign logged-in user
-            shedule_mail.save()  # Now save it to the databas
+            
+            subject = form_data.cleaned_data['mail_subject']
+            message = form_data.cleaned_data['message']
+            sent_from = form_data.cleaned_data['sent_from']
+            sent_to = form_data.cleaned_data['sent_to']
+            shedule_date = form_data.cleaned_data['shedule_date']
+            print("-------------===-------------")
+            print(type(shedule_date))
+            if shedule_date:
+                pass
+                SendMial.apply_async(
+                    args = [subject, message, sent_from, sent_to],
+                    eta=shedule_date
+                )
+            else:
+                print("Email Sent instand")
+            
+            # shedule_mail = form_data.save(commit=False)  # Don't save to DB yet
+            # shedule_mail.user = request.user  # Assign logged-in user
+            # shedule_mail.save()  # Now save it to the databas
             messages.success(request, "Mail Successfully Sheduled!")
             return redirect('utils:send_mail')
         else:
-            messages.error(request, "Email Not Shedule, Something Wrong!")
+            messages.error(request, f"Email Not Shedule, Something Wrong!{form_data.errors}")
             return redirect('utils:send_mail')
     form = ShedulemailForm()
     return render(request, 'utils/sendmail.html', context = {'form':form})

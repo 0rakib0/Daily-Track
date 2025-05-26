@@ -34,7 +34,7 @@ class SheduleMail(models.Model):
     sent_from = models.EmailField(max_length=254, blank=False, null=False)
     sent_to = models.EmailField(max_length=254, blank=False, null=False)
     is_sent = models.BooleanField(default=False)
-    shedule_date = models.DateField(blank=True, null=True)
+    shedule_date = models.DateTimeField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     
     

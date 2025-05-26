@@ -10,7 +10,15 @@ class ShedulemailForm(forms.ModelForm):
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Type your message here', 'rows': 4}),
             'sent_from': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sender Email'}),
             'sent_to': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Recipient Email'}),
-            'shedule_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select a date'}),
+            'shedule_date': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'type': 'datetime-local',
+                'placeholder': 'Select date and time'
+            }),
+
+        }
+        input_formats = {
+            'shedule_date': ['%Y-%m-%dT%H:%M']
         }
         
         
