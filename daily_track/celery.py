@@ -24,5 +24,13 @@ app.conf.beat_schedule = {
         'task': 'transactions.task.BudgetReminder',
         'schedule': crontab(hour=1, minute=26),
     },
+    'future_work_reminder_shadule': {
+        'task': 'utils.tasks.DailyWorkRemainder',
+        'schedule': crontab(hour=1, minute=4),
+    },
+    'project_reminder_shadule': {
+        'task': 'utils.tasks.ProjectPlanRemainder',
+        'schedule': crontab(hour=1, minute=19),
+    },
 }
 

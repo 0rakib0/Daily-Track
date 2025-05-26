@@ -42,7 +42,7 @@ class SheduleMail(models.Model):
         return f"{self.user.username} | {self.mail_subject}"
 
 class Tasks(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_task')
     task_title = models.CharField(max_length=266)
     task_details = RichTextField()
     is_complated = models.BooleanField(default=False)
@@ -61,7 +61,7 @@ class Note(models.Model):
         return self.note_title
     
 class FutureWork(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_future_work')
     title = models.CharField(max_length=266)
     work_details = RichTextField()
     shedule_date = models.DateField()
@@ -87,7 +87,7 @@ class Project(models.Model):
         return self.project_name
     
 class ProjectPlan(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_plan')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     date = models.DateField()
     topic_list =RichTextField()

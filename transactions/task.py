@@ -44,13 +44,11 @@ def BudgetReminder(self):
     from utils.models import Budget
     User = get_user_model()
     today = date.today()
-    use = User.objects.all()
-    
     users = User.objects.filter(budget__due_date=today).distinct()
+    
     for user in users:
         due_budgets = Budget.objects.filter(user=user, due_date=today)
         if due_budgets.exists():
-            print(f"Hello {user.username}, Your Todays Budget List is")
             budget_list = "\n".join([f"- {b.title} User: {user.username}" for b in due_budgets])
             message=f"Hi {user.username},\n\nHere are your budgets due today:\n\n{budget_list}\n\n- Your Daily Tracker"
             print(message)
