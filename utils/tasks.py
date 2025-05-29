@@ -7,8 +7,14 @@ from django.core.mail import send_mail
 
 @shared_task(bind=True)
 def SendMial(self, subject, message, sent_from, sent_to):
-    print(f"Subject: {subject} | Messsage: {message} | Sent From: {sent_from} | Sent To: {sent_to}")
-    return "Email Successfully Send to the user"
+    send_mail(
+        subject=f"🔔{subject}",
+        message=message,
+        from_email=sent_from,
+        recipient_list=[sent_to],
+        fail_silently=True
+    )
+    return "Email Successfully Sent to the user"
 
 
 @shared_task(bind=True)
@@ -20,10 +26,10 @@ def DailyWorkRemainder(self):
     for user in shadule_work_users:
         future_works = FutureWork.objects.filter(user=user, shedule_date=today)
         if future_works.exists():
-            future_work_list = "\n".join([f"- {f.title} User: {user.username}" for f in future_works])
+            future_work_list = "\n".join([f"- {f.title}" for f in future_works])
             send_mail(
                 subject="🔔 Your Todays Work List - You Need to complate all work today",
-                message=f"Hi {user.username},\n\nHere are your budgets due today:\n\n{future_work_list}",
+                message=f"Hi {user.username},\n\nHere are your work due today:\n\n{future_work_list}",
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[user.email],
                 fail_silently=True
@@ -41,7 +47,7 @@ def ProjectPlanRemainder(self):
     for user in users_projects_plans:
         project_plans = ProjectPlan.objects.filter(user=user, date=today)
         if project_plans.exists():
-            project_plan_list = "\n".join([f"- {f.project.project_name} User: {user.username}" for f in project_plans])
+            project_plan_list = "\n".join([f"- {f.topic_list}" for f in project_plans])
             send_mail(
                 subject="🔔 Your Todays Project plan list - You Need to complate today",
                 message=f"Hi {user.username},\n\nHere are your todays project plan:\n\n{project_plan_list}",
