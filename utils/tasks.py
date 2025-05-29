@@ -1,8 +1,8 @@
 from celery import shared_task
 from django.contrib.auth import get_user_model
-
 from datetime import date
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 @shared_task(bind=True)
@@ -21,9 +21,15 @@ def DailyWorkRemainder(self):
         future_works = FutureWork.objects.filter(user=user, shedule_date=today)
         if future_works.exists():
             future_work_list = "\n".join([f"- {f.title} User: {user.username}" for f in future_works])
-            print(future_work_list)
+            send_mail(
+                subject="🔔 Your Todays Work List - You Need to complate all work today",
+                message=f"Hi {user.username},\n\nHere are your budgets due today:\n\n{future_work_list}",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=True
+            )
     
-    return "Dailly Task Reminder==========="
+    return "Dailly Task Reminder"
 
 
 @shared_task(bind=True)
@@ -36,6 +42,12 @@ def ProjectPlanRemainder(self):
         project_plans = ProjectPlan.objects.filter(user=user, date=today)
         if project_plans.exists():
             project_plan_list = "\n".join([f"- {f.project.project_name} User: {user.username}" for f in project_plans])
-            print(project_plan_list)
+            send_mail(
+                subject="🔔 Your Todays Project plan list - You Need to complate today",
+                message=f"Hi {user.username},\n\nHere are your todays project plan:\n\n{project_plan_list}",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=True
+            )
     
     return "Dailly Task Reminder==========="

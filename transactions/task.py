@@ -1,6 +1,8 @@
 from celery import shared_task
 from datetime import date
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.core.mail import send_mail
 
 User = get_user_model()
 
@@ -50,8 +52,13 @@ def BudgetReminder(self):
         due_budgets = Budget.objects.filter(user=user, due_date=today)
         if due_budgets.exists():
             budget_list = "\n".join([f"- {b.title} User: {user.username}" for b in due_budgets])
-            message=f"Hi {user.username},\n\nHere are your budgets due today:\n\n{budget_list}\n\n- Your Daily Tracker"
-            print(message)
+            send_mail(
+                subject="🔔 Budget Reminder - Items Due Today",
+                message=f"Hi {user.username},\n\nHere are your budgets due today:\n\n{budget_list}",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=True
+            )
     return "BudgetReminder task successfully execute!"
 
 

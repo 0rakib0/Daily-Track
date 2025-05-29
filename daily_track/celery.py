@@ -22,7 +22,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'budget_reminder_shadule': {
         'task': 'transactions.task.BudgetReminder',
-        'schedule': crontab(hour=1, minute=26),
+        'schedule': crontab(hour=23, minute=17),
     },
     'future_work_reminder_shadule': {
         'task': 'utils.tasks.DailyWorkRemainder',
