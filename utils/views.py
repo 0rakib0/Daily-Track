@@ -153,27 +153,26 @@ def SendMail(request):
     if request.method == 'POST':
         form_data = ShedulemailForm(request.POST)
         if form_data.is_valid():
-            
             subject = form_data.cleaned_data['mail_subject']
             message = form_data.cleaned_data['message']
             sent_from = form_data.cleaned_data['sent_from']
             sent_to = form_data.cleaned_data['sent_to']
             shedule_date = form_data.cleaned_data['shedule_date']
-            print("-------------===-------------")
-            print(type(shedule_date))
+            
+            shedule_mail = form_data.save(commit=False)  # Don't save to DB yet
+            shedule_mail.user = request.user  # Assign logged-in user
+            shedule_mail.save()  # Now save it to the databas
+            messages.success(request, "Mail Successfully Sheduled!")
+            shadule_mail_id = shedule_mail.id
             if shedule_date:
-                pass
                 SendMial.apply_async(
-                    args = [subject, message, sent_from, sent_to],
+                    args = [subject, message, sent_from, sent_to, shadule_mail_id],
                     eta=shedule_date
                 )
             else:
-                print("Email Sent instand")
-            
-            # shedule_mail = form_data.save(commit=False)  # Don't save to DB yet
-            # shedule_mail.user = request.user  # Assign logged-in user
-            # shedule_mail.save()  # Now save it to the databas
-            messages.success(request, "Mail Successfully Sheduled!")
+                SendMial.apply_async(
+                    args = [subject, message, sent_from, sent_to, shadule_mail_id],
+                )
             return redirect('utils:send_mail')
         else:
             messages.error(request, f"Email Not Shedule, Something Wrong!{form_data.errors}")

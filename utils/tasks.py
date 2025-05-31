@@ -6,7 +6,8 @@ from django.core.mail import send_mail
 
 
 @shared_task(bind=True)
-def SendMial(self, subject, message, sent_from, sent_to):
+def SendMial(self, subject, message, sent_from, sent_to, shadule_mail_id):
+    from .models import SheduleMail
     send_mail(
         subject=f"🔔{subject}",
         message=message,
@@ -14,6 +15,9 @@ def SendMial(self, subject, message, sent_from, sent_to):
         recipient_list=[sent_to],
         fail_silently=True
     )
+    mail_instance = SheduleMail.objects.get(id=shadule_mail_id)
+    mail_instance.is_sent = True
+    mail_instance.save()
     return "Email Successfully Sent to the user"
 
 
