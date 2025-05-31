@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" style="z-index: 101;" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link" href="/">
@@ -107,7 +107,7 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'utils:sent_mail' %}">Sent Mail</a></li>
           </ul>
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Faild To Sent</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'utils:pending_mails' %}">Pending Mail</a></li>
           </ul>
         </div>
       </li>

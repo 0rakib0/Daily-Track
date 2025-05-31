@@ -42,6 +42,11 @@
                         </p>
                         <a href="{% url 'utils:update_project_plan' id=todays_project_plan.id %}" class="btn btn-sm btn-primary" style="background-color: #57c7d4; border-color: #57c7d4;">View Details</a>
                         <a href="{% url 'utils:delete_project_plan' id=todays_project_plan.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        {% if project_plan.status %}
+                            <a class="btn btn-sm btn-success disabled">Complated</a>
+                        {% else %}
+                            <a href="{% url 'utils:update_project_plan_true' id=todays_project_plan.id %}" class="btn btn-sm btn-success">Complate</a>
+                        {% endif %}
                         </div>
                     </div>
                 
@@ -77,6 +82,11 @@
                       </p>
                       <a href="{% url 'utils:update_project_plan' id=project_plan.id %}" class="btn btn-sm btn-primary" style="background-color: #57c7d4; border-color: #57c7d4;">View Details</a>
                       <a href="{% url 'utils:delete_project_plan' id=project_plan.id %}" class="btn btn-sm btn-danger">Delete</a>
+                      {% if project_plan.status %}
+                        <a class="btn btn-sm btn-success disabled">Complated</a>
+                      {% else %}
+                        <a href="{% url 'utils:update_project_plan_true' id=project_plan.id %}" class="btn btn-sm btn-success">Complate</a>
+                      {% endif %}
                     </div>
                 </div>
                 {% endfor %}

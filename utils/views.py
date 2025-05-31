@@ -186,6 +186,12 @@ def SentMail(request):
     sent_mails = SheduleMail.objects.filter(Q(is_sent=True) & Q(user=user))
     return render(request, 'utils/sentmail.html', context={'sent_mails':sent_mails})
 
+@login_required
+def PendingMail(request):
+    user = request.user
+    pending_mails = SheduleMail.objects.filter(Q(is_sent=False) & Q(user=user))
+    return render(request, 'utils/pendingmails.html', context={'pending_mails':pending_mails})
+
 
 
 @login_required
@@ -492,10 +498,23 @@ def ViewPerojectPlan(request, id):
         messages.error(request, "Project Does Not Fount, something wrong!")
         return redirect('utils:all_projects')
     
-    print(project_plan)
     
     return render(request, 'utils/project_plans.html', context={'project_plan':project_plan, 'todays_project_plan':todays_project_plan})
 
+@login_required
+def UpdateProjectPlanToComplate(request, id):
+    try:
+        project_plan = ProjectPlan.objects.filter(Q(user=request.user) & Q(id=id)).first()
+        if not project_plan:
+            messages.error(request, "Project plan Not Found!")
+            return redirect('utils:all_projects')
+    except Exception as e:
+        messages.error(request, f"Error fetching project: {e}")
+        return redirect('utils:all_projects')
+
+    project_plan.status = True
+    project_plan.save()
+    return redirect('utils:all_projects')
 
 @login_required
 def UpdateProjectPlan(request, id):
